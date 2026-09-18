@@ -19,7 +19,7 @@ jobs:
 
       - name: Install web dependencies
         working-directory: web
-        run: npm ci
+        run: npm install
 
       - name: Build web app
         run: npm run web:build
