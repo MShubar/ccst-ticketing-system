@@ -21,6 +21,8 @@ npx esbuild worker/entry.js \
   --external:cloudflare:sockets \
   --external:pg \
   --external:pdfkit \
+  --external:cookie-parser \
+  --external:express \
   --log-limit=0
 wc -c worker/dist/index.js
 echo "Bundled worker/dist/index.js"
