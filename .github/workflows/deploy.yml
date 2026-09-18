@@ -48,7 +48,7 @@ jobs:
           echo "$LOGIN" | python3 -c "import sys,json; d=json.load(sys.stdin); print(f\"  user={d['user']['username']} role={d['user']['role']}\")"
           echo "=== /api/me ==="
           ME="$(curl -fsS -b /tmp/ci_cookie "$URL/api/me")"
-          echo "$ME" | python3 -c "import sys,json; d=json.load(sys.stdin); print(f\"  class={d['class']['className']} user={d['user']['username']}\")"
+          echo "$ME" | python3 -c "import sys,json; d=json.load(sys.stdin); u=d.get('user',{}); print(f\"  user={u.get('username')} role={u.get('role')}\")"
           echo "=== /api/tickets ==="
           TICKETS="$(curl -fsS -b /tmp/ci_cookie "$URL/api/tickets")"
           echo "$TICKETS" | python3 -c "import sys,json; d=json.load(sys.stdin); print(f\"  total={d['total']}\")"
