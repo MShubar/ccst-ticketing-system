@@ -17,15 +17,15 @@ jobs:
           cache: npm
           cache-dependency-path: web/package-lock.json
 
+      - name: Install dependencies
+        run: npm install
+
       - name: Install web dependencies
         working-directory: web
-        run: npm install
+        run: npm ci
 
       - name: Build web app
         run: npm run web:build
-
-      - name: Build Worker
-        run: bash backend/scripts/build-worker.sh
 
       - name: Deploy to Cloudflare
         run: npx wrangler deploy
