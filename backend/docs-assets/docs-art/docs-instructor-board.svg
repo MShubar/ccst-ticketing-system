@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 308" width="960" height="308" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+  <rect width="960" height="308" fill="#ffffff"/>
+
+  <!-- header totals -->
+  <g>
+    <rect x="1" y="1" width="190" height="46" rx="8" fill="#fbf8f2" stroke="#d7cfc0"/>
+    <text x="14" y="20" font-size="10" letter-spacing="0.06em" fill="#5c6570">PRESENT</text>
+    <text x="14" y="39" font-size="15" font-weight="700" fill="#1c2430">12 <tspan font-size="11" font-weight="400" fill="#5c6570">of 14</tspan></text>
+
+    <rect x="207" y="1" width="190" height="46" rx="8" fill="#fbf8f2" stroke="#d7cfc0"/>
+    <text x="220" y="20" font-size="10" letter-spacing="0.06em" fill="#5c6570">OPEN IN CLASS</text>
+    <text x="220" y="39" font-size="15" font-weight="700" fill="#1c2430">37</text>
+
+    <rect x="413" y="1" width="190" height="46" rx="8" fill="#fdf6e9" stroke="#e3d3ae"/>
+    <text x="426" y="20" font-size="10" letter-spacing="0.06em" fill="#b45309">PAST SLA</text>
+    <text x="426" y="39" font-size="15" font-weight="700" fill="#b45309">4</text>
+
+    <rect x="619" y="1" width="190" height="46" rx="8" fill="#fbf8f2" stroke="#d7cfc0"/>
+    <text x="632" y="20" font-size="10" letter-spacing="0.06em" fill="#5c6570">NO PRIORITY</text>
+    <text x="632" y="39" font-size="15" font-weight="700" fill="#1c2430">6</text>
+  </g>
+
+  <!-- table -->
+  <g>
+    <rect x="1" y="66" width="958" height="30" fill="#efe7d8"/>
+    <g font-size="11" font-weight="700" fill="#1c2430">
+      <text x="14" y="86">Student</text>
+      <text x="282" y="86">In</text>
+      <text x="362" y="86">Open</text>
+      <text x="452" y="86">Past SLA</text>
+      <text x="557" y="86">No priority</text>
+      <text x="672" y="86">Review left</text>
+      <text x="787" y="86">Status</text>
+    </g>
+
+    <rect x="1" y="96" width="958" height="34" fill="#fdf6e9"/>
+    <rect x="1" y="130" width="958" height="34" fill="#ffffff"/>
+    <rect x="1" y="164" width="958" height="34" fill="#fbf8f2"/>
+
+    <g font-size="11.5" fill="#1c2430">
+      <text x="14" y="117">Sara Ebrahim</text>
+      <text x="282" y="117" fill="#5c6570">08:05</text>
+      <text x="362" y="117">4</text>
+      <text x="452" y="117" font-weight="700" fill="#b45309">1</text>
+      <text x="557" y="117">0</text>
+      <text x="672" y="117">2</text>
+
+      <text x="14" y="151">Ali Hasan</text>
+      <text x="282" y="151" fill="#5c6570">08:11</text>
+      <text x="362" y="151">3</text>
+      <text x="452" y="151">0</text>
+      <text x="557" y="151">1</text>
+      <text x="672" y="151">0</text>
+
+      <text x="14" y="185">Noor Khalid</text>
+      <text x="282" y="185" fill="#9aa3ad">&#8212;</text>
+      <text x="362" y="185">0</text>
+      <text x="452" y="185">0</text>
+      <text x="557" y="185">0</text>
+      <text x="672" y="185">0</text>
+    </g>
+
+    <!-- status pills -->
+    <rect x="787" y="103" width="118" height="21" rx="10.5" fill="#f5d7a8" stroke="#b45309"/>
+    <text x="846" y="118" text-anchor="middle" font-size="10.5" font-weight="700" fill="#7c3d06">Needs attention</text>
+
+    <rect x="787" y="137" width="72" height="21" rx="10.5" fill="#d8ede9" stroke="#0f766e"/>
+    <text x="823" y="152" text-anchor="middle" font-size="10.5" font-weight="700" fill="#0b5b55">Working</text>
+
+    <rect x="787" y="171" width="56" height="21" rx="10.5" fill="#eeeae1" stroke="#c9c0b0"/>
+    <text x="815" y="186" text-anchor="middle" font-size="10.5" font-weight="700" fill="#5c6570">Clear</text>
+
+    <rect x="1" y="66" width="958" height="132" fill="none" stroke="#d7cfc0"/>
+    <line x1="269" y1="66" x2="269" y2="198" stroke="#e4ddd0"/>
+    <line x1="349" y1="66" x2="349" y2="198" stroke="#e4ddd0"/>
+    <line x1="439" y1="66" x2="439" y2="198" stroke="#e4ddd0"/>
+    <line x1="544" y1="66" x2="544" y2="198" stroke="#e4ddd0"/>
+    <line x1="659" y1="66" x2="659" y2="198" stroke="#e4ddd0"/>
+    <line x1="774" y1="66" x2="774" y2="198" stroke="#e4ddd0"/>
+  </g>
+
+  <!-- callout -->
+  <rect x="1" y="216" width="958" height="62" rx="9" fill="#f6f9f8" stroke="#cfe0dc"/>
+  <rect x="1" y="216" width="4" height="62" rx="2" fill="#0f766e"/>
+  <text x="22" y="239" font-size="11.5" fill="#5c6570"><tspan font-weight="700" fill="#1c2430">Needs attention</tspan> is the flag worth chasing mid-lesson: one of that student's tickets has sat untouched for more</text>
+  <text x="22" y="257" font-size="11.5" fill="#5c6570">than 45 minutes, or it has passed an SLA deadline. Otherwise the row reads <tspan font-weight="700" fill="#1c2430">Working</tspan>, or <tspan font-weight="700" fill="#1c2430">Clear</tspan> when nothing is outstanding.</text>
+  <text x="22" y="273" font-size="10.5" fill="#9aa3ad">Rows above are an illustration, not live data.</text>
+
+  <text x="1" y="300" font-size="11" fill="#5c6570">Class &amp; students &#8594; Live class board. One row per student, refreshed as they work.</text>
+</svg>

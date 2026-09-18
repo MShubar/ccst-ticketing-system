@@ -1,0 +1,14 @@
+node_modules/
+backend/var/db.json
+web/node_modules/
+web/dist/
+.DS_Store
+*.log
+.env
+.tmp-docs-pdf/
+.vercel
+.env*
+
+# Cloudflare build
+worker/dist/
+.wrangler/

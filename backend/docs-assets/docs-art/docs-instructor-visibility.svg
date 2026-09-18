@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 348" width="960" height="348" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+  <rect width="960" height="348" fill="#ffffff"/>
+
+  <!-- Panel: shared left navigation -->
+  <g>
+    <rect x="1" y="1" width="298" height="298" rx="10" fill="#fbf8f2" stroke="#d7cfc0"/>
+    <path d="M1 11a10 10 0 0 1 10-10h278a10 10 0 0 1 10 10v27H1z" fill="#efe7d8"/>
+    <text x="16" y="26" font-size="13" font-weight="700" fill="#1c2430">Left navigation</text>
+    <text x="16" y="60" font-size="11" fill="#5c6570">Identical for instructors and students</text>
+    <g font-size="13" fill="#1c2430">
+      <circle cx="21" cy="92" r="3.5" fill="#0f766e"/><text x="34" y="96">Dashboard</text>
+      <circle cx="21" cy="128" r="3.5" fill="#0f766e"/><text x="34" y="132">Ticket queue</text>
+      <circle cx="21" cy="164" r="3.5" fill="#0f766e"/><text x="34" y="168">Lab map</text>
+      <circle cx="21" cy="200" r="3.5" fill="#0f766e"/><text x="34" y="204">Portals</text>
+    </g>
+    <text x="16" y="248" font-size="11" fill="#5c6570">On the Dashboard students also</text>
+    <text x="16" y="264" font-size="11" fill="#5c6570">get a <tspan font-weight="700">mine</tspan> view of their own work.</text>
+  </g>
+
+  <!-- Panel: account menu -->
+  <g>
+    <rect x="331" y="1" width="298" height="298" rx="10" fill="#fbf8f2" stroke="#d7cfc0"/>
+    <path d="M331 11a10 10 0 0 1 10-10h278a10 10 0 0 1 10 10v27H331z" fill="#efe7d8"/>
+    <text x="346" y="26" font-size="13" font-weight="700" fill="#1c2430">Your name, top right</text>
+    <text x="346" y="60" font-size="11" fill="#5c6570">Everything else lives in this menu</text>
+    <g font-size="13" fill="#1c2430">
+      <circle cx="351" cy="92" r="3.5" fill="#0f766e"/><text x="364" y="96">My progress</text>
+      <circle cx="351" cy="128" r="3.5" fill="#0f766e"/><text x="364" y="132">Class &amp; students <tspan fill="#5c6570">*</tspan></text>
+      <circle cx="351" cy="164" r="3.5" fill="#0f766e"/><text x="364" y="168">Knowledge base</text>
+      <circle cx="351" cy="200" r="3.5" fill="#0f766e"/><text x="364" y="204">Documentation</text>
+      <circle cx="351" cy="236" r="3.5" fill="#0f766e"/><text x="364" y="240">Sign out</text>
+    </g>
+    <text x="346" y="278" font-size="11" fill="#5c6570">* students open the same page as</text>
+    <text x="346" y="292" font-size="11" fill="#5c6570"><tspan font-weight="700">Team</tspan>, read-only</text>
+  </g>
+
+  <!-- Panel: instructor-only controls -->
+  <g>
+    <rect x="661" y="1" width="298" height="298" rx="10" fill="#effaf7" stroke="#0f766e"/>
+    <path d="M661 11a10 10 0 0 1 10-10h278a10 10 0 0 1 10 10v27H661z" fill="#0f766e"/>
+    <text x="676" y="26" font-size="13" font-weight="700" fill="#ffffff">Instructor only</text>
+    <text x="676" y="60" font-size="11" fill="#0f766e">Never rendered on a student account</text>
+    <g font-size="12.5" fill="#1c2430">
+      <rect x="676" y="78" width="8" height="8" fill="#0f766e"/><text x="694" y="87">New ticket</text>
+      <rect x="676" y="108" width="8" height="8" fill="#0f766e"/><text x="694" y="117">Generate a workload with AI</text>
+      <rect x="676" y="138" width="8" height="8" fill="#0f766e"/><text x="694" y="147">Remove all tickets</text>
+      <rect x="676" y="168" width="8" height="8" fill="#0f766e"/><text x="694" y="177">Roster tools and KPI exports</text>
+      <rect x="676" y="198" width="8" height="8" fill="#0f766e"/><text x="694" y="207">Reset to design, on the Lab map</text>
+      <rect x="676" y="228" width="8" height="8" fill="#0f766e"/><text x="694" y="237">The review form on a ticket</text>
+      <rect x="676" y="258" width="8" height="8" fill="#0f766e"/><text x="694" y="267">Live class board, Attendance</text>
+    </g>
+  </g>
+
+  <text x="1" y="330" font-size="11.5" fill="#5c6570">Same four pages for the whole class. What separates your account is the set of controls on top of them.</text>
+</svg>

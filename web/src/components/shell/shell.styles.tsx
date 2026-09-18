@@ -1,0 +1,139 @@
+import styled, { css } from "styled-components";
+
+import { colors } from "@/theme/colors";
+
+export const Shell = styled.div<{ $pending?: boolean; $ready?: boolean }>`
+  display: grid;
+  grid-template-columns: 248px 1fr;
+  min-height: 100vh;
+  visibility: ${({ $ready }) => ($ready ? "visible" : "hidden")};
+
+  ${({ $pending }) =>
+    $pending &&
+    css`
+      & > .workspace .content {
+        opacity: 0.72;
+        transition: opacity 0.15s ease;
+      }
+    `}
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+export const SidebarRoot = styled.aside`
+  background:
+    radial-gradient(1200px 400px at -10% -10%, ${colors.tealGlow}, transparent 50%),
+    linear-gradient(180deg, ${colors.navy2}, ${colors.navy});
+  color: ${colors.sidebarText};
+  padding: 22px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+`;
+
+export const BrandTitle = styled.div`
+  font-family: ${({ theme }) => theme.fonts.serif};
+  font-size: 28px;
+  line-height: 1.05;
+  margin: 6px 0 4px;
+`;
+
+export const BrandSub = styled.div`
+  font-size: 12px;
+  color: ${colors.sidebarMuted};
+`;
+
+export const NavList = styled.nav`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+`;
+
+export const NavLink = styled.a<{ $active?: boolean }>`
+  color: ${colors.navLink};
+  text-decoration: none;
+  padding: 9px 10px;
+  border-radius: ${({ theme }) => theme.radii.sm};
+  font-size: 13.5px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+
+  &:hover {
+    background: ${colors.whiteSoft};
+    color: ${colors.white};
+  }
+
+  ${({ $active }) =>
+    $active &&
+    css`
+      background: ${colors.whiteSoft};
+      color: ${colors.white};
+      box-shadow: inset 3px 0 0 ${colors.teal};
+    `}
+`;
+
+export const Workspace = styled.div.attrs({ className: "workspace" })`
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: ${colors.white};
+`;
+
+export const Topbar = styled.header`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 28px;
+  border-bottom: 1px solid ${colors.line};
+  background: ${colors.white};
+
+  h1 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+  }
+`;
+
+export const Content = styled.main.attrs({ className: "content" })`
+  padding: 24px 28px 48px;
+  background: ${colors.white};
+  flex: 1;
+`;
+
+export const AlertBox = styled.div<{ $variant?: "warning" | "announce" }>`
+  border-radius: ${({ theme }) => theme.radii.md};
+  padding: 12px 14px;
+  margin-bottom: 16px;
+  line-height: 1.5;
+
+  ${({ $variant }) =>
+    $variant === "announce"
+      ? css`
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px 14px;
+          align-items: baseline;
+          background: linear-gradient(
+            90deg,
+            ${colors.announceBgFrom},
+            ${colors.announceBgTo}
+          );
+          border: 1px solid ${colors.announceBorder};
+          color: ${colors.announceText};
+          font-size: 14px;
+
+          strong {
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            font-size: 11px;
+          }
+        `
+      : css`
+          border: 1px solid ${colors.warningBorder};
+          background: ${colors.warningBg};
+          color: ${colors.warningText};
+          font-size: 13px;
+        `}
+`;

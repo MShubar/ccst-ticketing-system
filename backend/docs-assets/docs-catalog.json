@@ -1,0 +1,297 @@
+{
+  "generatedAt": "2026-09-14T01:31:27.200Z",
+  "staticBase": null,
+  "artBase": "/docs-art",
+  "items": [
+    {
+      "id": "01-system",
+      "file": "01-system.md",
+      "title": "System documentation",
+      "hasPdf": true,
+      "md": "/docs-md/01-system.md",
+      "pdf": "/docs-pdf/01-system.pdf",
+      "thumb": "/docs-art/docs-lifecycle.png"
+    },
+    {
+      "id": "02-infrastructure",
+      "file": "02-infrastructure.md",
+      "title": "Infrastructure documentation",
+      "hasPdf": true,
+      "md": "/docs-md/02-infrastructure.md",
+      "pdf": "/docs-pdf/02-infrastructure.pdf",
+      "thumb": "/docs-art/docs-map.png"
+    },
+    {
+      "id": "03-process",
+      "file": "03-process.md",
+      "title": "Process documentation",
+      "hasPdf": true,
+      "md": "/docs-md/03-process.md",
+      "pdf": "/docs-pdf/03-process.pdf",
+      "thumb": "/docs-art/docs-process.png"
+    },
+    {
+      "id": "04-incident-response",
+      "file": "04-incident-response.md",
+      "title": "Incident response",
+      "hasPdf": true,
+      "md": "/docs-md/04-incident-response.md",
+      "pdf": "/docs-pdf/04-incident-response.pdf",
+      "thumb": "/docs-art/docs-incident.png"
+    },
+    {
+      "id": "05-user-guide",
+      "file": "05-user-guide.md",
+      "title": "User guide",
+      "hasPdf": true,
+      "md": "/docs-md/05-user-guide.md",
+      "pdf": "/docs-pdf/05-user-guide.pdf",
+      "thumb": "/docs-art/docs-hero.png"
+    },
+    {
+      "id": "06-compliance",
+      "file": "06-compliance.md",
+      "title": "Compliance and acceptable use",
+      "hasPdf": true,
+      "md": "/docs-md/06-compliance.md",
+      "pdf": "/docs-pdf/06-compliance.pdf",
+      "thumb": "/docs-art/docs-privacy.png"
+    },
+    {
+      "id": "07-knowledge-base",
+      "file": "07-knowledge-base.md",
+      "title": "Knowledge base documentation",
+      "hasPdf": true,
+      "md": "/docs-md/07-knowledge-base.md",
+      "pdf": "/docs-pdf/07-knowledge-base.pdf",
+      "thumb": "/docs-art/docs-kb.png"
+    },
+    {
+      "id": "08-configuration",
+      "file": "08-configuration.md",
+      "title": "Configuration documentation",
+      "hasPdf": true,
+      "md": "/docs-md/08-configuration.md",
+      "pdf": "/docs-pdf/08-configuration.pdf",
+      "thumb": "/docs-art/docs-class-setup.png"
+    },
+    {
+      "id": "09-sla-kpis",
+      "file": "09-sla-kpis.md",
+      "title": "SLAs, SLOs and KPIs",
+      "hasPdf": true,
+      "md": "/docs-md/09-sla-kpis.md",
+      "pdf": "/docs-pdf/09-sla-kpis.pdf",
+      "thumb": "/docs-art/docs-sla.png"
+    },
+    {
+      "id": "10-accounts",
+      "file": "10-accounts.md",
+      "title": "Classroom accounts",
+      "hasPdf": true,
+      "md": "/docs-md/10-accounts.md",
+      "pdf": "/docs-pdf/10-accounts.pdf",
+      "thumb": "/docs-art/docs-accounts.png"
+    },
+    {
+      "id": "11-simple-fixes",
+      "file": "11-simple-fixes.md",
+      "title": "Simple fixes (read this with the ticket)",
+      "hasPdf": true,
+      "md": "/docs-md/11-simple-fixes.md",
+      "pdf": "/docs-pdf/11-simple-fixes.pdf",
+      "thumb": "/docs-art/docs-ipconfig.png"
+    },
+    {
+      "id": "12-class-lab",
+      "file": "12-class-lab.md",
+      "title": "G18 class lab — the browser Lab map",
+      "hasPdf": true,
+      "md": "/docs-md/12-class-lab.md",
+      "pdf": "/docs-pdf/12-class-lab.pdf",
+      "thumb": "/docs-art/docs-map.png"
+    },
+    {
+      "id": "13-instructor-class-day",
+      "file": "13-instructor-class-day.md",
+      "title": "Instructor class-day sheet",
+      "hasPdf": true,
+      "md": "/docs-md/13-instructor-class-day.md",
+      "pdf": "/docs-pdf/13-instructor-class-day.pdf",
+      "thumb": "/docs-art/docs-class-setup.png"
+    },
+    {
+      "id": "14-custom-domain",
+      "file": "14-custom-domain.md",
+      "title": "Custom domain — ccst.website → Azure",
+      "hasPdf": false,
+      "md": "/docs-md/14-custom-domain.md",
+      "pdf": null,
+      "thumb": "/docs-art/docs-hero.png"
+    },
+    {
+      "id": "14-instructor-guide",
+      "file": "14-instructor-guide.md",
+      "title": "Instructor guide",
+      "hasPdf": true,
+      "md": "/docs-md/14-instructor-guide.md",
+      "pdf": "/docs-pdf/14-instructor-guide.pdf",
+      "thumb": "/docs-art/docs-class-setup.png"
+    },
+    {
+      "id": "15-sql-storage",
+      "file": "15-sql-storage.md",
+      "title": "SQL storage (PostgreSQL)",
+      "hasPdf": false,
+      "md": "/docs-md/15-sql-storage.md",
+      "pdf": null,
+      "thumb": "/docs-art/docs-hero.png"
+    },
+    {
+      "id": "16-ops",
+      "file": "16-ops.md",
+      "title": "Operations runbook",
+      "hasPdf": false,
+      "md": "/docs-md/16-ops.md",
+      "pdf": null,
+      "thumb": "/docs-art/docs-hero.png"
+    },
+    {
+      "id": "17-cloudflare",
+      "file": "17-cloudflare.md",
+      "title": "Cloudflare deployment",
+      "hasPdf": false,
+      "md": "/docs-md/17-cloudflare.md",
+      "pdf": null,
+      "thumb": "/docs-art/docs-hero.png"
+    }
+  ],
+  "appItems": [
+    {
+      "id": "01-system",
+      "file": "01-system.md",
+      "title": "System documentation",
+      "hasPdf": true,
+      "md": "/docs-md/01-system.md",
+      "pdf": "/docs-pdf/01-system.pdf",
+      "thumb": "/docs-art/docs-lifecycle.png"
+    },
+    {
+      "id": "02-infrastructure",
+      "file": "02-infrastructure.md",
+      "title": "Infrastructure documentation",
+      "hasPdf": true,
+      "md": "/docs-md/02-infrastructure.md",
+      "pdf": "/docs-pdf/02-infrastructure.pdf",
+      "thumb": "/docs-art/docs-map.png"
+    },
+    {
+      "id": "03-process",
+      "file": "03-process.md",
+      "title": "Process documentation",
+      "hasPdf": true,
+      "md": "/docs-md/03-process.md",
+      "pdf": "/docs-pdf/03-process.pdf",
+      "thumb": "/docs-art/docs-process.png"
+    },
+    {
+      "id": "04-incident-response",
+      "file": "04-incident-response.md",
+      "title": "Incident response",
+      "hasPdf": true,
+      "md": "/docs-md/04-incident-response.md",
+      "pdf": "/docs-pdf/04-incident-response.pdf",
+      "thumb": "/docs-art/docs-incident.png"
+    },
+    {
+      "id": "05-user-guide",
+      "file": "05-user-guide.md",
+      "title": "User guide",
+      "hasPdf": true,
+      "md": "/docs-md/05-user-guide.md",
+      "pdf": "/docs-pdf/05-user-guide.pdf",
+      "thumb": "/docs-art/docs-hero.png"
+    },
+    {
+      "id": "06-compliance",
+      "file": "06-compliance.md",
+      "title": "Compliance and acceptable use",
+      "hasPdf": true,
+      "md": "/docs-md/06-compliance.md",
+      "pdf": "/docs-pdf/06-compliance.pdf",
+      "thumb": "/docs-art/docs-privacy.png"
+    },
+    {
+      "id": "07-knowledge-base",
+      "file": "07-knowledge-base.md",
+      "title": "Knowledge base documentation",
+      "hasPdf": true,
+      "md": "/docs-md/07-knowledge-base.md",
+      "pdf": "/docs-pdf/07-knowledge-base.pdf",
+      "thumb": "/docs-art/docs-kb.png"
+    },
+    {
+      "id": "08-configuration",
+      "file": "08-configuration.md",
+      "title": "Configuration documentation",
+      "hasPdf": true,
+      "md": "/docs-md/08-configuration.md",
+      "pdf": "/docs-pdf/08-configuration.pdf",
+      "thumb": "/docs-art/docs-class-setup.png"
+    },
+    {
+      "id": "09-sla-kpis",
+      "file": "09-sla-kpis.md",
+      "title": "SLAs, SLOs and KPIs",
+      "hasPdf": true,
+      "md": "/docs-md/09-sla-kpis.md",
+      "pdf": "/docs-pdf/09-sla-kpis.pdf",
+      "thumb": "/docs-art/docs-sla.png"
+    },
+    {
+      "id": "10-accounts",
+      "file": "10-accounts.md",
+      "title": "Classroom accounts",
+      "hasPdf": true,
+      "md": "/docs-md/10-accounts.md",
+      "pdf": "/docs-pdf/10-accounts.pdf",
+      "thumb": "/docs-art/docs-accounts.png"
+    },
+    {
+      "id": "11-simple-fixes",
+      "file": "11-simple-fixes.md",
+      "title": "Simple fixes (read this with the ticket)",
+      "hasPdf": true,
+      "md": "/docs-md/11-simple-fixes.md",
+      "pdf": "/docs-pdf/11-simple-fixes.pdf",
+      "thumb": "/docs-art/docs-ipconfig.png"
+    },
+    {
+      "id": "12-class-lab",
+      "file": "12-class-lab.md",
+      "title": "G18 class lab — the browser Lab map",
+      "hasPdf": true,
+      "md": "/docs-md/12-class-lab.md",
+      "pdf": "/docs-pdf/12-class-lab.pdf",
+      "thumb": "/docs-art/docs-map.png"
+    },
+    {
+      "id": "13-instructor-class-day",
+      "file": "13-instructor-class-day.md",
+      "title": "Instructor class-day sheet",
+      "hasPdf": true,
+      "md": "/docs-md/13-instructor-class-day.md",
+      "pdf": "/docs-pdf/13-instructor-class-day.pdf",
+      "thumb": "/docs-art/docs-class-setup.png"
+    },
+    {
+      "id": "14-instructor-guide",
+      "file": "14-instructor-guide.md",
+      "title": "Instructor guide",
+      "hasPdf": true,
+      "md": "/docs-md/14-instructor-guide.md",
+      "pdf": "/docs-pdf/14-instructor-guide.pdf",
+      "thumb": "/docs-art/docs-class-setup.png"
+    }
+  ]
+}

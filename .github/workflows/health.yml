@@ -1,0 +1,31 @@
+name: Production health
+
+on:
+  schedule:
+    # Every day at 05:00 UTC (08:00 Bahrain)
+    - cron: "0 5 * * *"
+  workflow_dispatch:
+
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check live /api/health (Cloudflare)
+        env:
+          HEALTH_URL: ${{ vars.HEALTH_URL }}
+        run: |
+          set -euo pipefail
+          URL="${HEALTH_URL:-https://ccst-ticketing.mohsen-salman099.workers.dev/api/health}"
+          BODY="$(curl -fsS --max-time 30 "$URL")"
+          echo "$BODY"
+          echo "$BODY" | grep -q '"ok":true'
+          echo "$BODY" | grep -Eq '"storageMode":"(d1|sql)"'
+          if echo "$BODY" | grep -q '"storageMode":"d1"'; then
+            if echo "$BODY" | grep -q '"coreGateOk":false'; then
+              echo "CoreGate probe failed" >&2
+              exit 1
+            fi
+            if echo "$BODY" | grep -q '"d1LagWarn":true'; then
+              echo "::warning::D1 lag warn is set — students may briefly see stale reads"
+            fi
+          fi

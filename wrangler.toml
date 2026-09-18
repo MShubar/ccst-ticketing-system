@@ -1,0 +1,75 @@
+# CCST Ticketing on Cloudflare Workers + D1 + R2
+name = "ccst-ticketing"
+main = "worker/entry.js"
+compatibility_date = "2026-09-01"
+compatibility_flags = ["nodejs_compat"]
+workers_dev = true
+
+[vars]
+CF_WORKER = "1"
+PERSIST_BACKEND = "d1"
+NODE_ENV = "production"
+CORE_EDGE_CACHE_SEC = "8"
+LAB_EDGE_CACHE_SEC = "45"
+# Docs are served from the DOCS R2 binding via the Worker (/docs-*).
+# Leave Azure URL empty once R2 is populated.
+
+# Keep D1 + CoreGate + colo edge cache warm so a class walk-in avoids cold starts.
+[triggers]
+crons = ["*/2 * * * *"]
+
+[assets]
+directory = "./web/dist"
+binding = "ASSETS"
+# React browser router: unknown paths fall back to index.html.
+not_found_handling = "single-page-application"
+run_worker_first = ["/api/*", "/docs-*"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "ccst-ticketing"
+database_id = "8d820bf0-1990-49b9-aba2-909e84fb7d0f"
+preview_database_id = "8d820bf0-1990-49b9-aba2-909e84fb7d0f"
+
+[[r2_buckets]]
+binding = "DOCS"
+bucket_name = "ccstwebsite"
+preview_bucket_name = "ccstwebsite"
+
+[alias]
+"iconv-lite" = "./worker/shims/iconv-lite.js"
+
+# pdfkit resolves its ICC profile from import.meta.url while the module loads.
+# The bundle leaves that undefined, so `new URL('./data/...', undefined)` threw
+# "Invalid URL string." and every KPI PDF request failed. The value only needs
+# to be a parseable base — the profile itself is read lazily, for PDF/A output
+# the classroom reports never ask for.
+[define]
+"import.meta.url" = "'file:///worker/entry.js'"
+
+[[durable_objects.bindings]]
+name = "MAP_ROOM"
+class_name = "MapRoom"
+
+[[durable_objects.bindings]]
+name = "CORE_GATE"
+class_name = "CoreGate"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["MapRoom"]
+
+[[migrations]]
+tag = "v2"
+new_sqlite_classes = ["CoreGate"]
+
+# Optional: after the zone is on Cloudflare, add:
+# routes = [
+#   { pattern = "ccst.website/*", zone_name = "ccst.website" },
+#   { pattern = "www.ccst.website/*", zone_name = "ccst.website" }
+# ]
+# Or attach Custom Domains in the dashboard (preferred for SSL).
+
+# Secrets:
+#   npx wrangler secret put SESSION_SECRET
+#   npx wrangler secret put INSTRUCTOR_SIGNUP_CODE

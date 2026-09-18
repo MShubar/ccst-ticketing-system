@@ -1,0 +1,41 @@
+{
+  "name": "ccst-ticketing-system",
+  "version": "1.0.0",
+  "description": "CCST Ticketing — classroom IT support ticketing system for ProCloud Training Center",
+  "main": "backend/index.js",
+  "scripts": {
+    "start": "node backend/index.js",
+    "seed": "node -e \"require('./backend/data/store').reset().then(() => console.log('Seeded')).catch((err) => { console.error(err); process.exit(1); })\"",
+    "docs:pdf": "node backend/scripts/build-docs-pdf.js",
+    "deploy:azure": "bash backend/scripts/deploy-azure.sh",
+    "deploy:cloudflare": "bash backend/scripts/build-worker.sh && bash backend/scripts/deploy-cloudflare.sh",
+    "cf:build": "bash backend/scripts/build-worker.sh",
+    "cf:deploy": "bash backend/scripts/prepare-web-assets.sh && npm --prefix web run build && bash backend/scripts/build-worker.sh && npx wrangler deploy",
+    "cf:dev": "npx wrangler dev",
+    "migrate:d1": "node backend/scripts/migrate-to-d1.js",
+    "backup:azure": "bash backend/scripts/backup-azure.sh",
+    "backup:d1": "bash backend/scripts/backup-d1.sh",
+    "drill:restore": "bash backend/scripts/drill-restore.sh",
+    "drill:chaos": "node backend/scripts/chaos-health.js",
+    "upload:r2": "bash backend/scripts/upload-r2-docs.sh",
+    "upload:static": "bash backend/scripts/upload-static-assets.sh",
+    "migrate:sql": "node backend/scripts/migrate-blob-to-sql.js",
+    "test": "node backend/scripts/smoke-tests.js && node backend/scripts/api-smoke.js",
+    "web:prepare": "bash backend/scripts/prepare-web-assets.sh",
+    "web:dev": "bash backend/scripts/prepare-web-assets.sh && npm --prefix web run dev",
+    "web:build": "bash backend/scripts/prepare-web-assets.sh && npm --prefix web run build",
+    "web:preview": "npm --prefix web run preview"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "express": "^4.21.2",
+    "pdfkit": "^0.20.2",
+    "pg": "^8.23.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
+}

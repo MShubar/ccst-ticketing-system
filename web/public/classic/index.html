@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CCST Ticketing · ProCloud</title>
+  <script>
+    // Detect React iframe embed before loading fonts / service-worker cleanup.
+    window.__ccstEmbed = /(?:\?|&)embed=1(?:&|$)/.test(location.hash || "");
+  </script>
+  <link rel="stylesheet" href="/classic/css/app.css?v=47" />
+  <script>
+    if (!window.__ccstEmbed) {
+      var pre1 = document.createElement("link");
+      pre1.rel = "preconnect";
+      pre1.href = "https://fonts.googleapis.com";
+      document.head.appendChild(pre1);
+      var pre2 = document.createElement("link");
+      pre2.rel = "preconnect";
+      pre2.href = "https://fonts.gstatic.com";
+      pre2.crossOrigin = "anonymous";
+      document.head.appendChild(pre2);
+      var fonts = document.createElement("link");
+      fonts.rel = "stylesheet";
+      fonts.href = "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,520;9..144,640&family=IBM+Plex+Mono:wght@400;500&family=Sora:wght@400;500;600;700&display=swap";
+      document.head.appendChild(fonts);
+    }
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+  <div id="toast-host" class="toast-host" aria-live="polite"></div>
+  <script>
+    // Drop leftover React PWA worker + its static-resources cache so lab JS can update.
+    // Skip entirely inside the React embed iframe — it only adds latency.
+    window.__ccstReady = (async function () {
+      if (window.__ccstEmbed) return true;
+      try {
+        if ("serviceWorker" in navigator) {
+          const regs = await navigator.serviceWorker.getRegistrations();
+          const had = regs.length > 0 || Boolean(navigator.serviceWorker.controller);
+          await Promise.all(regs.map((r) => r.unregister()));
+          if (window.caches) {
+            const keys = await caches.keys();
+            await Promise.all(keys.map((k) => caches.delete(k)));
+          }
+          if (had && !sessionStorage.getItem("ccst-sw-cleared")) {
+            sessionStorage.setItem("ccst-sw-cleared", "1");
+            location.reload();
+            return false;
+          }
+        }
+      } catch (_) {}
+      return true;
+    })();
+  </script>
+  <script type="module">
+    if (await window.__ccstReady) {
+      // Prefer /classic/#… (directory index) so Cloudflare does not 307
+  // bump classic app.js so util/navigateApp changes ship.
+      await import("/classic/js/app.js?v=94");
+    }
+  </script>
+</body>
+</html>

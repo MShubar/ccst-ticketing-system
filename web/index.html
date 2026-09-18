@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CCST Ticketing · ProCloud</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,520;9..144,640&family=IBM+Plex+Mono:wght@400;500&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <!-- Boot splash runs before React; keep these in sync with src/theme/colors.tsx (navy, teal, tealRing). -->
+    <style>
+      html, body { margin: 0; background: #07131f; } /* colors.navy */
+      #ccst-boot-splash {
+        position: fixed; inset: 0; z-index: 9999;
+        display: grid; place-items: center;
+        background: #07131f; /* colors.navy */
+        pointer-events: none;
+      }
+      #ccst-boot-splash .spin {
+        width: 36px; height: 36px; border-radius: 50%;
+        border: 3px solid rgba(26, 168, 154, 0.22); /* colors.tealRing */
+        border-top-color: #1aa89a; /* colors.teal */
+        animation: ccst-splash-spin 0.7s linear infinite;
+      }
+      @keyframes ccst-splash-spin { to { transform: rotate(360deg); } }
+      @media (prefers-reduced-motion: reduce) {
+        #ccst-boot-splash .spin { animation: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="ccst-boot-splash" role="status" aria-label="Loading" aria-busy="true">
+      <div class="spin" aria-hidden="true"></div>
+    </div>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

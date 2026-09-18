@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 292" width="960" height="292" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 1 L9 5 L0 9 z" fill="#9aa3ad"/>
+    </marker>
+  </defs>
+  <rect width="960" height="292" fill="#ffffff"/>
+
+  <!-- legend -->
+  <g font-size="11.5">
+    <rect x="1" y="8" width="11" height="11" rx="2" fill="#effaf7" stroke="#0f766e"/>
+    <text x="19" y="18" fill="#1c2430">you</text>
+    <rect x="61" y="8" width="11" height="11" rx="2" fill="#fbf8f2" stroke="#d7cfc0"/>
+    <text x="79" y="18" fill="#1c2430">the student</text>
+  </g>
+
+  <!-- arrows -->
+  <g stroke="#9aa3ad" stroke-width="1.6" marker-end="url(#arw)">
+    <line x1="146" y1="102" x2="164" y2="102"/>
+    <line x1="306" y1="102" x2="324" y2="102"/>
+    <line x1="466" y1="102" x2="484" y2="102"/>
+    <line x1="626" y1="102" x2="644" y2="102"/>
+    <line x1="786" y1="102" x2="804" y2="102"/>
+  </g>
+
+  <!-- 1: hand out work (instructor) -->
+  <rect x="8" y="60" width="136" height="84" rx="9" fill="#effaf7" stroke="#0f766e"/>
+  <text x="76" y="95" text-anchor="middle" font-size="12" font-weight="700" fill="#1c2430">Hand out work</text>
+  <text x="76" y="113" text-anchor="middle" font-size="10.5" fill="#0f766e">Generate, or</text>
+  <text x="76" y="127" text-anchor="middle" font-size="10.5" fill="#0f766e">New ticket</text>
+
+  <!-- 2: set priority (student) -->
+  <rect x="168" y="60" width="136" height="84" rx="9" fill="#fbf8f2" stroke="#d7cfc0"/>
+  <text x="236" y="87" text-anchor="middle" font-size="12" font-weight="700" fill="#1c2430">Set a priority</text>
+  <text x="236" y="105" text-anchor="middle" font-size="10.5" fill="#b45309">SLA clocks</text>
+  <text x="236" y="119" text-anchor="middle" font-size="10.5" fill="#b45309">start here</text>
+
+  <!-- 3: claim and work -->
+  <rect x="328" y="60" width="136" height="84" rx="9" fill="#fbf8f2" stroke="#d7cfc0"/>
+  <text x="396" y="87" text-anchor="middle" font-size="12" font-weight="700" fill="#1c2430">Claim and work</text>
+  <text x="396" y="105" text-anchor="middle" font-size="10.5" fill="#5c6570">Lab map,</text>
+  <text x="396" y="119" text-anchor="middle" font-size="10.5" fill="#5c6570">Portals</text>
+
+  <!-- 4: write it up -->
+  <rect x="488" y="60" width="136" height="84" rx="9" fill="#fbf8f2" stroke="#d7cfc0"/>
+  <text x="556" y="87" text-anchor="middle" font-size="12" font-weight="700" fill="#1c2430">Write it up</text>
+  <text x="556" y="105" text-anchor="middle" font-size="10.5" fill="#5c6570">Problem, Actions,</text>
+  <text x="556" y="119" text-anchor="middle" font-size="10.5" fill="#5c6570">Results</text>
+
+  <!-- 5: resolve or escalate -->
+  <rect x="648" y="60" width="136" height="84" rx="9" fill="#fbf8f2" stroke="#d7cfc0"/>
+  <text x="716" y="87" text-anchor="middle" font-size="12" font-weight="700" fill="#1c2430">Resolve</text>
+  <text x="716" y="105" text-anchor="middle" font-size="10.5" fill="#5c6570">or escalate, with</text>
+  <text x="716" y="119" text-anchor="middle" font-size="10.5" fill="#5c6570">a written reason</text>
+
+  <!-- 6: your review -->
+  <rect x="808" y="60" width="136" height="84" rx="9" fill="#effaf7" stroke="#0f766e"/>
+  <text x="876" y="87" text-anchor="middle" font-size="12" font-weight="700" fill="#1c2430">Your review</text>
+  <text x="876" y="105" text-anchor="middle" font-size="10.5" fill="#0f766e">mark, comment,</text>
+  <text x="876" y="119" text-anchor="middle" font-size="10.5" fill="#0f766e">then the grade</text>
+
+  <!-- pointer from the priority step down to the note -->
+  <path d="M236 148 L236 186" stroke="#b45309" stroke-width="1.4" stroke-dasharray="4 3" fill="none" marker-end="url(#arw)"/>
+
+  <!-- note -->
+  <rect x="8" y="192" width="936" height="66" rx="9" fill="#fdf6e9" stroke="#e3d3ae"/>
+  <rect x="8" y="192" width="4" height="66" rx="2" fill="#b45309"/>
+  <text x="28" y="216" font-size="12" font-weight="700" fill="#1c2430">Nothing is late until a priority exists.</text>
+  <text x="28" y="236" font-size="11.5" fill="#5c6570">Tickets are created without one, so the queue shows <tspan font-weight="700" fill="#1c2430">Awaiting priority</tspan> and no deadline is running. The response</text>
+  <text x="28" y="252" font-size="11.5" fill="#5c6570">and resolve clocks from your <tspan font-weight="700" fill="#1c2430">Class SLA</tspan> only begin at the moment the student chooses one.</text>
+
+  <text x="1" y="282" font-size="11" fill="#5c6570">Only the two teal steps are yours. Everything between them is the student's, and it is what your review is judging.</text>
+</svg>

@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 324" width="960" height="324" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+  <rect width="960" height="324" fill="#ffffff"/>
+
+  <text x="30" y="22" font-size="12" font-weight="700" fill="#1c2430">What the auto grade is made of, out of 100</text>
+
+  <!-- weighted bar -->
+  <g>
+    <rect x="30" y="34" width="405" height="44" fill="#0f766e"/>
+    <rect x="435" y="34" width="180" height="44" fill="#2b9489"/>
+    <rect x="615" y="34" width="180" height="44" fill="#5cb6ab"/>
+    <rect x="795" y="34" width="90" height="44" fill="#93cfc6"/>
+    <rect x="885" y="34" width="45" height="44" fill="#c4e4de"/>
+    <rect x="30" y="34" width="900" height="44" fill="none" stroke="#d7cfc0"/>
+    <g text-anchor="middle" font-size="15" font-weight="700">
+      <text x="232" y="62" fill="#ffffff">45</text>
+      <text x="525" y="62" fill="#ffffff">20</text>
+      <text x="705" y="62" fill="#ffffff">20</text>
+      <text x="840" y="62" fill="#1c2430">10</text>
+      <text x="907" y="62" fill="#1c2430">5</text>
+    </g>
+  </g>
+
+  <!-- component key -->
+  <g font-size="11.5">
+    <rect x="30" y="96" width="12" height="12" fill="#0f766e"/>
+    <text x="52" y="106" font-weight="700" fill="#1c2430">Tickets resolved</text>
+    <text x="196" y="106" fill="#5c6570">Resolved against assigned. Open work is penalised on a steep curve, not a flat percentage.</text>
+
+    <rect x="30" y="122" width="12" height="12" fill="#2b9489"/>
+    <text x="52" y="132" font-weight="700" fill="#1c2430">SLA compliance</text>
+    <text x="196" y="132" fill="#5c6570">Resolved inside the resolve SLO, or still open and not yet breached.</text>
+
+    <rect x="30" y="148" width="12" height="12" fill="#5cb6ab"/>
+    <text x="52" y="158" font-weight="700" fill="#1c2430">Review mark</text>
+    <text x="196" y="158" fill="#5c6570">The average of the marks you save on that student's tickets.</text>
+
+    <rect x="30" y="174" width="12" height="12" fill="#93cfc6"/>
+    <text x="52" y="184" font-weight="700" fill="#1c2430">Correct priority</text>
+    <text x="196" y="184" fill="#5c6570">Your <tspan font-style="italic">priority correct?</tspan> answers.</text>
+
+    <rect x="30" y="200" width="12" height="12" fill="#c4e4de"/>
+    <text x="52" y="210" font-weight="700" fill="#1c2430">Correct process</text>
+    <text x="196" y="210" fill="#5c6570">Your <tspan font-style="italic">process correct?</tspan> answers.</text>
+  </g>
+
+  <!-- bands -->
+  <text x="30" y="248" font-size="12" font-weight="700" fill="#1c2430">Where the score lands</text>
+
+  <g>
+    <rect x="30" y="258" width="351" height="26" fill="#e8cfc9"/>
+    <rect x="381" y="258" width="270" height="26" fill="#f3e0bf"/>
+    <rect x="651" y="258" width="279" height="26" fill="#c4e4de"/>
+    <rect x="30" y="258" width="900" height="26" fill="none" stroke="#d7cfc0"/>
+    <g text-anchor="middle" font-size="12" font-weight="700" fill="#1c2430">
+      <text x="205" y="276">Incomplete</text>
+      <text x="516" y="276">Needs work</text>
+      <text x="790" y="276">Pass</text>
+    </g>
+    <g font-size="10.5" fill="#5c6570">
+      <text x="30" y="298" text-anchor="start">0</text>
+      <text x="381" y="298" text-anchor="middle">40</text>
+      <text x="651" y="298" text-anchor="middle">70</text>
+      <text x="930" y="298" text-anchor="end">100</text>
+    </g>
+  </g>
+
+  <text x="30" y="316" font-size="11" fill="#5c6570">A component with no data is skipped and the remaining weights are rescaled, so an unreviewed class is not scored as if every review were zero.</text>
+</svg>
