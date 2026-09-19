@@ -35,9 +35,10 @@ export default defineConfig({
             urlPattern: ({ request }: { request: Request }) => {
               return request.destination === "script" || request.destination === "style";
             },
-            handler: "StaleWhileRevalidate",
+            handler: "NetworkFirst",
             options: {
               cacheName: "static-resources",
+              networkTimeoutSeconds: 5,
               expiration: { maxEntries: 64, maxAgeSeconds: 30 * 24 * 60 * 60 },
             },
           },
@@ -66,6 +67,8 @@ export default defineConfig({
           },
         ],
         cleanupOutdatedCaches: true,
+        skipWaiting: true,
+        clientsClaim: true,
       },
     }),
   ],
