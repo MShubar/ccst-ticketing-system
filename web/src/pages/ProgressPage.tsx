@@ -3,6 +3,8 @@ import styled, { css } from "styled-components";
 
 import OptimisticLink from "@/components/common/OptimisticLink";
 import { Btn, Card, Hint } from "@/components/ui/primitives";
+import Loader from "@/components/common/Loader";
+import { Skeleton } from "@/components/common/Skeleton";
 import { ROUTES } from "@/constants/routes";
 import { usePageReady } from "@/nav/PageReadyContext";
 import { useKpiPdf } from "@/services/mutations/kpi/kpi.hooks";
@@ -126,7 +128,13 @@ export default function ProgressPage() {
     if (data || error || (!isLoading && !data)) markReady();
   }, [data, error, isLoading, markReady]);
 
-  if (isLoading && !data) return null;
+  if (isLoading && !data) {
+    return (
+      <Loader variant="card" caption="Loading progress…" useSkeleton>
+        <Skeleton as="lines" count={5} width="100%" gap="14px" />
+      </Loader>
+    );
+  }
   if (error || !data) {
     return (
       <Card>

@@ -7,6 +7,8 @@ import { toast } from "sonner";
 
 import { api } from "@/api/client";
 import { queryKeys } from "@/api/queryKeys";
+import { Skeleton } from "@/components/common/Skeleton";
+import Loader from "@/components/common/Loader";
 import { Btn, Card, Field, Hint } from "@/components/ui/primitives";
 import { usePageReady } from "@/nav/PageReadyContext";
 import { useTicket, useUsers } from "@/services/queries/classroom";
@@ -131,7 +133,13 @@ export default function TicketDetailPage() {
     invalidateLists();
   };
 
-  if (isLoading && !ticket) return null;
+  if (isLoading && !ticket) {
+    return (
+      <Loader variant="card" caption="Loading ticket…" useSkeleton>
+        <Skeleton as="lines" count={5} width="100%" gap="10px" />
+      </Loader>
+    );
+  }
   if (error || !ticket) {
     return (
       <Card>

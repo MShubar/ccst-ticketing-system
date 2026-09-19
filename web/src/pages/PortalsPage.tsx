@@ -4,10 +4,12 @@ import styled from "styled-components";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
+import { Skeleton } from "@/components/common/Skeleton";
+import Loader from "@/components/common/Loader";
+import { Btn, Card, Hint } from "@/components/ui/primitives";
+import OptimisticLink from "@/components/common/OptimisticLink";
 import { api } from "@/api/client";
 import { queryKeys } from "@/api/queryKeys";
-import OptimisticLink from "@/components/common/OptimisticLink";
-import { Btn, Card, Hint } from "@/components/ui/primitives";
 import { ROUTES } from "@/constants/routes";
 import { usePageReady } from "@/nav/PageReadyContext";
 import { usePortals } from "@/services/queries/classroom";
@@ -157,7 +159,13 @@ export default function PortalsPage() {
     }
   }
 
-  if (isLoading && !data) return null;
+  if (isLoading && !data) {
+    return (
+      <Loader variant="card" caption="Loading portals…" useSkeleton>
+        <Skeleton as="lines" count={6} width="100%" gap="12px" />
+      </Loader>
+    );
+  }
   if (error || !data) {
     return (
       <Card>

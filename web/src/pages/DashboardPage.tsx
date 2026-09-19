@@ -1,7 +1,9 @@
 import { useEffect } from "react";
 import styled, { css } from "styled-components";
 
+import { Skeleton } from "@/components/common/Skeleton";
 import OptimisticLink from "@/components/common/OptimisticLink";
+import Loader from "@/components/common/Loader";
 import { Btn, Card } from "@/components/ui/primitives";
 import { ROUTES } from "@/constants/routes";
 import { usePageReady } from "@/nav/PageReadyContext";
@@ -288,7 +290,13 @@ export default function DashboardPage() {
     if (data || error || (!isLoading && !data)) markReady();
   }, [data, error, isLoading, markReady]);
 
-  if (isLoading && !data) return null;
+  if (isLoading && !data) {
+    return (
+      <Loader variant="card" caption="Loading dashboard…" useSkeleton>
+        <Skeleton as="lines" count={6} width="100%" gap="12px" />
+      </Loader>
+    );
+  }
   if (error || !data) return <ErrorMsg>Could not load the dashboard.</ErrorMsg>;
 
   const desk = data.focus === "desk";

@@ -6,6 +6,7 @@ import styled from "styled-components";
 
 import FormError from "@/components/ui/FormError";
 import { BrandKicker, Btn, Field, Hint } from "@/components/ui/primitives";
+import { SkeletonBlock, SkeletonLines } from "@/components/common/Skeleton";
 import { useLogin } from "@/services/mutations/auth/auth.hooks";
 import { loginSchema, type LoginFormValues } from "@/services/mutations/auth/auth.schema";
 import { useAuthStore } from "@/store/auth/authStore";
@@ -129,8 +130,13 @@ export default function LoginPage() {
           </ModeRow>
 
           {mode === "register" ? (
-            <div style={{ padding: 16, color: "#5a6b7a" }}>
-              Switch to instructor signup — form loading…
+            <div style={{ display: "flex", flexDirection: "column", gap: 10, padding: 8 }}>
+              <SkeletonLines count={1} width="100%" gap="0" style={{ height: "13px" }} />
+              <SkeletonBlock width="100%" height="42px" radius="6px" />
+              <SkeletonBlock width="100%" height="42px" radius="6px" />
+              <div style={{ marginTop: 6 }}>
+                <SkeletonBlock width="130px" height="34px" radius="6px" />
+              </div>
             </div>
           ) : (
             <>

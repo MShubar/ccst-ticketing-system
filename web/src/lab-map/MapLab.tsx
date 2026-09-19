@@ -475,7 +475,54 @@ export default function MapLab() {
   );
 
   if (isLoading && !initialized) {
-    return <p className="hint">Loading lab map…</p>;
+    return (
+      <div className="map-lab-react" style={{ opacity: 0.6 }}>
+        <div className="map-toolbar card">
+          <div className="map-search" id="map-search-box">
+            <label className="map-search-label" htmlFor="map-search-skeleton">
+              Find a device
+            </label>
+            <input
+              id="map-search-skeleton"
+              type="search"
+              disabled
+              placeholder="PC-S1, 10.10.20.10, Finance…"
+              aria-label="Find a device on the map"
+            />
+          </div>
+          <div className="map-zoom" role="group" aria-label="Zoom">
+            <button className="btn secondary map-zoom-btn" type="button" disabled>−</button>
+            <button className="btn secondary map-zoom-label" type="button" disabled>85%</button>
+            <button className="btn secondary map-zoom-btn" type="button" disabled>+</button>
+          </div>
+          <div className="map-legend">
+            <span><i className="lg-pc" /> PC</span>
+            <span><i className="lg-laptop" /> Laptop</span>
+            <span><i className="lg-printer" /> Printer</span>
+            <span><i className="lg-switch" /> Switch</span>
+            <span><i className="lg-router" /> Router</span>
+            <span><i className="lg-server" /> Server / VM</span>
+            <span><i className="lg-cloud-vm" /> Cloud VM</span>
+            <span><i className="lg-ap" /> Access point</span>
+          </div>
+          <span className="hint" id="map-status">Loading lab map…</span>
+        </div>
+        <div className="map-board card" id="map-board">
+          <div className="map-scroll" id="map-scroll" style={{ minHeight: 320 }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "100%", height: "100%", minHeight: 280, background: "var(--ccst-navy2, #0e1a28)", borderRadius: 8 }}>
+              <div style={{ width: "100%", maxWidth: 1200, padding: "24px 32px" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                  {[1, 2, 3, 4, 5].map((i) => (
+                    <div key={i} style={{ height: 12, borderRadius: 3, width: i === 5 ? "60%" : "100%", background: "linear-gradient(90deg, #0e1a28 0%, #1a2c42 45%, #0e1a28 55%)", backgroundSize: "200% 100%", animation: "ccst-shimmer 1.6s ease-in-out infinite" }} />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p className="hint">Click a device for its console. Click two ports to plug a cable.</p>
+      </div>
+    );
   }
   if (!topo) {
     return <p className="hint">Could not load map topology.</p>;

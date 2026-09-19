@@ -3,6 +3,8 @@ import type { FormEvent } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 
+import { Skeleton } from "@/components/common/Skeleton";
+import Loader from "@/components/common/Loader";
 import OptimisticLink from "@/components/common/OptimisticLink";
 import { Btn, Card } from "@/components/ui/primitives";
 import { ROUTES } from "@/constants/routes";
@@ -275,7 +277,13 @@ export default function TicketsPage() {
     setSearchParams({});
   };
 
-  if (isLoading && !data) return null;
+  if (isLoading && !data) {
+    return (
+      <Loader variant="card" caption="Loading tickets…" useSkeleton>
+        <Skeleton as="lines" count={8} width="100%" gap="10px" />
+      </Loader>
+    );
+  }
 
   const tickets = (data?.items || []) as TicketRow[];
   const page = data?.page || 1;

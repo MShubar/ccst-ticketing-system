@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { toast } from "sonner";
 
 import { api } from "@/api/client";
+import Loader from "@/components/common/Loader";
 import { Btn, Card, Field } from "@/components/ui/primitives";
 import { ROUTES } from "@/constants/routes";
 import { usePageReady } from "@/nav/PageReadyContext";
@@ -55,7 +56,13 @@ export default function NewTicketPage() {
     }
   };
 
-  if (loading) return null;
+  if (loading) {
+    return (
+      <Card style={{ maxWidth: 760 }}>
+        <Loader variant="card" caption="Loading form…" useSkeleton />
+      </Card>
+    );
+  }
 
   return (
     <Card as="form" id="new-ticket" style={{ maxWidth: 760 }} onSubmit={onSubmit}>

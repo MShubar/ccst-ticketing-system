@@ -4,13 +4,15 @@ import styled from "styled-components";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
-import { api } from "@/api/client";
+import { Skeleton } from "@/components/common/Skeleton";
+import Loader from "@/components/common/Loader";
 import OptimisticLink from "@/components/common/OptimisticLink";
 import { Btn, Card, Field, Hint } from "@/components/ui/primitives";
 import { ROUTES } from "@/constants/routes";
 import { usePageReady } from "@/nav/PageReadyContext";
 import { useUsers } from "@/services/queries/classroom";
 import { useAuthStore } from "@/store/auth/authStore";
+import { api } from "@/api/client";
 import { colors } from "@/theme/colors";
 import { downloadFile } from "@/utils/downloadFile";
 import { formatWhen } from "@/utils/format";
@@ -386,7 +388,13 @@ export default function TeamPage() {
     </Card>
   );
 
-  if (isLoading && !users) return null;
+  if (isLoading && !users) {
+    return (
+      <Loader variant="card" caption="Loading team…" useSkeleton>
+        <Skeleton as="lines" count={6} width="100%" gap="12px" />
+      </Loader>
+    );
+  }
   if (error) {
     return (
       <Card>

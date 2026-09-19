@@ -3,6 +3,8 @@ import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 
 import { Card, Hint } from "@/components/ui/primitives";
+import Loader from "@/components/common/Loader";
+import { Skeleton } from "@/components/common/Skeleton";
 import { usePageReady } from "@/nav/PageReadyContext";
 import { useKb } from "@/services/queries/classroom";
 import type { KbArticle } from "@/types/classroom";
@@ -292,7 +294,13 @@ export default function KnowledgeBasePage() {
     return matchSlugs.size === 1 ? "1 article mentions it" : `${matchSlugs.size} articles mention it`;
   }, [articles, matchSlugs, search]);
 
-  if (isLoading && !articles) return null;
+  if (isLoading && !articles) {
+    return (
+      <Loader variant="card" caption="Loading knowledge base…" useSkeleton>
+        <Skeleton as="lines" count={8} width="100%" gap="12px" />
+      </Loader>
+    );
+  }
   if (error || !articles || !current) {
     return (
       <Card>
