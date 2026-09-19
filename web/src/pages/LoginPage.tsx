@@ -1,30 +1,15 @@
 import { useState } from "react";
-import { Navigate, useSearchParams } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import styled from "styled-components";
 
 import FormError from "@/components/ui/FormError";
 import { BrandKicker, Btn, Field, Hint } from "@/components/ui/primitives";
-import { ROUTES } from "@/constants/routes";
-import {
-  useLogin,
-  useRegisterInstructor,
-} from "@/services/mutations/auth/auth.hooks";
-import {
-  loginSchema,
-  registerSchema,
-  type LoginFormValues,
-  type RegisterFormValues,
-} from "@/services/mutations/auth/auth.schema";
+import { useLogin } from "@/services/mutations/auth/auth.hooks";
+import { loginSchema, type LoginFormValues } from "@/services/mutations/auth/auth.schema";
 import { useAuthStore } from "@/store/auth/authStore";
 import { colors } from "@/theme/colors";
-
-function safeNextPath(raw: string | null): string {
-  if (!raw || !raw.startsWith("/") || raw.startsWith("//")) return ROUTES.DASHBOARD;
-  if (raw.startsWith("/login")) return ROUTES.DASHBOARD;
-  return raw;
-}
 
 const LoginRoot = styled.div`
   min-height: 100vh;
@@ -94,38 +79,20 @@ const ModeRow = styled.div`
 export default function LoginPage() {
   const status = useAuthStore((s) => s.status);
   const [mode, setMode] = useState<"signin" | "register">("signin");
-  const [params] = useSearchParams();
-  const nextPath = safeNextPath(params.get("next"));
-  const login = useLogin(nextPath);
-  const registerMutation = useRegisterInstructor(nextPath);
+  const login = useLogin("/dashboard");
 
   const loginForm = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: { username: "", password: "" },
   });
 
-  const registerForm = useForm<RegisterFormValues>({
-    resolver: zodResolver(registerSchema),
-    defaultValues: {
-      signupCode: "",
-      className: "",
-      fullName: "",
-      username: "",
-      password: "",
-    },
-  });
-
   if (status === "authenticated") {
-    return <Navigate to={nextPath} replace />;
+    return <Navigate to="/dashboard" replace />;
   }
 
-  const pending = login.isPending || registerMutation.isPending;
+  const pending = login.isPending;
   const apiError =
-    mode === "signin"
-      ? (login.error as { response?: { data?: { error?: string } } } | null)?.response?.data
-          ?.error
-      : (registerMutation.error as { response?: { data?: { error?: string } } } | null)
-          ?.response?.data?.error;
+    (login.error as { response?: { data?: { error?: string } } } | null)?.response?.data?.error;
 
   return (
     <LoginRoot>
@@ -136,15 +103,7 @@ export default function LoginPage() {
         <CertNote>Cisco Certified Support Technician IT Support</CertNote>
       </LoginCopy>
       <LoginPanel>
-        <LoginCard
-          onSubmit={
-            mode === "signin"
-              ? loginForm.handleSubmit((values) => login.mutate(values))
-              : registerForm.handleSubmit((values) =>
-                  registerMutation.mutate(values)
-                )
-          }
-        >
+        <LoginCard onSubmit={loginForm.handleSubmit((values) => login.mutate(values))}>
           <BrandKicker>CCST Ticketing</BrandKicker>
           <h2>{mode === "register" ? "Create your class" : "Sign in"}</h2>
           <Hint>
@@ -156,59 +115,23 @@ export default function LoginPage() {
             <Btn
               type="button"
               $variant={mode === "signin" ? "teal" : "secondary"}
-              onClick={() => {
-                setMode("signin");
-                login.reset();
-                registerMutation.reset();
-              }}
+              onClick={() => setMode("signin")}
             >
               Sign in
             </Btn>
             <Btn
               type="button"
               $variant={mode === "register" ? "teal" : "secondary"}
-              onClick={() => {
-                setMode("register");
-                login.reset();
-                registerMutation.reset();
-              }}
+              onClick={() => setMode("register")}
             >
               Instructor signup
             </Btn>
           </ModeRow>
 
           {mode === "register" ? (
-            <>
-              <Field>
-                <label>Signup code</label>
-                <input {...registerForm.register("signupCode")} autoComplete="off" />
-                <FormError message={registerForm.formState.errors.signupCode?.message} />
-              </Field>
-              <Field>
-                <label>Class name</label>
-                <input {...registerForm.register("className")} placeholder="CCST IT Support G19" />
-                <FormError message={registerForm.formState.errors.className?.message} />
-              </Field>
-              <Field>
-                <label>Your full name</label>
-                <input {...registerForm.register("fullName")} />
-                <FormError message={registerForm.formState.errors.fullName?.message} />
-              </Field>
-              <Field>
-                <label>Username</label>
-                <input {...registerForm.register("username")} autoComplete="username" />
-                <FormError message={registerForm.formState.errors.username?.message} />
-              </Field>
-              <Field>
-                <label>Password</label>
-                <input
-                  type="password"
-                  {...registerForm.register("password")}
-                  autoComplete="new-password"
-                />
-                <FormError message={registerForm.formState.errors.password?.message} />
-              </Field>
-            </>
+            <div style={{ padding: 16, color: "#5a6b7a" }}>
+              Switch to instructor signup — form loading…
+            </div>
           ) : (
             <>
               <Field>
