@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CCST Ticketing — Teacher Manual</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --navy: #07131f;
+    --navy2: #0d1f2e;
+    --teal: #1aa89a;
+    --teal-bright: #15c1b0;
+    --coral: #e0574f;
+    --amber: #e8a838;
+    --sky: #3a8fc4;
+    --paper: #f7f9fb;
+    --ink: #1a2330;
+    --muted: #64748b;
+    --line: #e2e8f0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--navy);
+    color: var(--paper);
+    line-height: 1.65;
+    font-size: 11pt;
+  }
+
+  /* ===== COVER ===== */
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 30%, rgba(26,168,154,0.15) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 70% 80%, rgba(58,143,196,0.10) 0%, transparent 60%),
+      var(--navy);
+    page-break-after: always;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(26,168,154,0.03) 40px, rgba(26,168,154,0.03) 41px),
+      repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(58,143,196,0.02) 40px, rgba(58,143,196,0.02) 41px);
+  }
+
+  .cover-eyebrow {
+    font-size: 10pt;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--teal);
+    font-weight: 600;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover-title {
+    font-size: clamp(48pt, 10vw, 96pt);
+    font-weight: 900;
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+    color: #fff;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover-title span {
+    color: var(--teal-bright);
+  }
+
+  .cover-sub {
+    font-size: clamp(14pt, 2.5vw, 22pt);
+    font-weight: 500;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 48px;
+    max-width: 560px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover-meta {
+    display: flex;
+    gap: 32px;
+    margin-top: 32px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover-meta-item {
+    text-align: center;
+  }
+
+  .cover-meta-label {
+    font-size: 8pt;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 4px;
+  }
+
+  .cover-meta-value {
+    font-size: 12pt;
+    font-weight: 600;
+    color: var(--teal-bright);
+  }
+
+  .cover-rule {
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--teal), var(--sky));
+    border-radius: 2px;
+    margin: 32px auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ===== PAGE LAYOUT ===== */
+  .page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 56px 64px;
+    page-break-after: always;
+  }
+
+  .page:last-child { page-break-after: auto; }
+
+  /* ===== SECTION HEADERS ===== */
+  .section-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10pt;
+    font-weight: 500;
+    color: var(--teal);
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  h1 {
+    font-size: clamp(28pt, 4vw, 40pt);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+
+  h1 .highlight {
+    background: linear-gradient(135deg, var(--teal-bright), var(--sky));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  h2 {
+    font-size: clamp(16pt, 2.2vw, 22pt);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    color: #fff;
+    margin-top: 32px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid rgba(26,168,154,0.3);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  h2 .icon {
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(135deg, var(--teal), var(--teal-bright));
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14pt;
+    flex-shrink: 0;
+  }
+
+  h3 {
+    font-size: 12pt;
+    font-weight: 700;
+    color: var(--teal-bright);
+    margin-top: 20px;
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+
+  p {
+    margin-bottom: 10px;
+    color: rgba(255,255,255,0.82);
+  }
+
+  a {
+    color: var(--teal-bright);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  /* ===== TICK ERASER UNDERLINE ===== */
+  .tick-underline {
+    position: relative;
+    padding-bottom: 6px;
+  }
+  .tick-underline::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: repeating-linear-gradient(90deg, var(--teal) 0, var(--teal) 6px, transparent 6px, transparent 12px);
+    border-radius: 2px;
+  }
+
+  /* ===== CALLOUTS ===== */
+  .callout {
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .callout::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+  }
+
+  .callout.info {
+    background: rgba(58,143,196,0.12);
+    border: 1px solid rgba(58,143,196,0.25);
+  }
+  .callout.info::before { background: var(--sky); }
+
+  .callout.warn {
+    background: rgba(232,168,56,0.10);
+    border: 1px solid rgba(232,168,56,0.25);
+  }
+  .callout.warn::before { background: var(--amber); }
+
+  .callout strong {
+    display: block;
+    font-size: 10pt;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+    font-weight: 700;
+  }
+
+  .callout.info strong { color: var(--sky); }
+  .callout.warn strong { color: var(--amber); }
+
+  .callout p { margin-bottom: 0; font-size: 10.5pt; }
+
+  /* ===== TABLES ===== */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0 16px;
+    font-size: 10pt;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  th {
+    background: rgba(26,168,154,0.15);
+    color: var(--teal-bright);
+    font-weight: 700;
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 2px solid rgba(26,168,154,0.3);
+  }
+
+  td {
+    padding: 7px 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.8);
+  }
+
+  tr:last-child td { border-bottom: none; }
+
+  td:first-child { font-weight: 600; color: #fff; }
+
+  /* ===== LISTS ===== */
+  ul, ol {
+    margin: 8px 0 12px;
+    padding-left: 20px;
+  }
+
+  li {
+    margin-bottom: 5px;
+    color: rgba(255,255,255,0.82);
+    font-size: 10.5pt;
+  }
+
+  ol li::marker {
+    color: var(--teal);
+    font-weight: 700;
+  }
+
+  /* ===== CODE / URL BLOCK ===== */
+  .url-block {
+    background: rgba(26,168,154,0.10);
+    border: 1px solid rgba(26,168,154,0.2);
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin: 10px 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10pt;
+    color: var(--teal-bright);
+    word-break: break-all;
+  }
+
+  .url-block::before {
+    content: '🔗';
+    margin-right: 8px;
+    font-size: 11pt;
+  }
+
+  /* ===== SEPARATOR ===== */
+  .sep {
+    border: none;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    margin: 24px 0;
+  }
+
+  /* ===== TWO-COLUMN ===== */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 12px 0;
+  }
+
+  .two-col > div {
+    background: rgba(26,168,154,0.06);
+    border: 1px solid rgba(26,168,154,0.15);
+    border-radius: 8px;
+    padding: 10px 14px;
+  }
+
+  .two-col h4 {
+    font-size: 9pt;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--teal);
+    margin-bottom: 4px;
+    font-weight: 700;
+  }
+
+  .two-col p {
+    font-size: 10pt;
+    margin-bottom: 0;
+  }
+
+  /* ===== QUOTE BOX ===== */
+  .scenario {
+    background: rgba(255,255,255,0.03);
+    border-left: 4px solid var(--coral);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    margin: 14px 0;
+  }
+
+  .scenario p { margin-bottom: 0; }
+
+  .scenario .label {
+    font-size: 9pt;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--coral);
+    font-weight: 700;
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  /* ===== TIPS SECTION ===== */
+  .tip-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 12px 0;
+  }
+
+  .tip-card {
+    background: linear-gradient(135deg, rgba(26,168,154,0.10), rgba(58,143,196,0.06));
+    border: 1px solid rgba(26,168,154,0.2);
+    border-radius: 8px;
+    padding: 12px 14px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tip-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    background: radial-gradient(circle, rgba(26,168,154,0.3), transparent);
+    border-radius: 0 0 0 8px;
+  }
+
+  .tip-card h4 {
+    font-size: 9pt;
+    font-weight: 700;
+    color: var(--teal-bright);
+    margin-bottom: 4px;
+  }
+
+  .tip-card p {
+    font-size: 10pt;
+    margin-bottom: 0;
+    color: rgba(255,255,255,0.78);
+  }
+
+  /* ===== FOOTER NOTE ===== */
+  .footnote {
+    margin-top: 24px;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 6px;
+    font-size: 9pt;
+    color: rgba(255,255,255,0.4);
+    font-style: italic;
+  }
+
+  /* ===== SECTION DIVIDER PAGE ===== */
+  .divider {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: var(--navy);
+    page-break-after: always;
+  }
+
+  .divider-eyebrow {
+    font-size: 10pt;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--teal);
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  .divider-title {
+    font-size: 36pt;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -0.02em;
+  }
+
+  .divider-title span { color: var(--teal-bright); }
+
+  .divider-rule {
+    width: 40px;
+    height: 2px;
+    background: var(--teal);
+    margin: 16px 0 20px;
+  }
+
+  .divider-sub {
+    font-size: 12pt;
+    color: rgba(255,255,255,0.5);
+    max-width: 440px;
+  }
+
+  /* ===== CONTACT CARD ===== */
+  .contact-card {
+    background: linear-gradient(135deg, rgba(26,168,154,0.12), rgba(58,143,196,0.08));
+    border: 1px solid rgba(26,168,154,0.3);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 16px 0;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .contact-avatar {
+    width: 52px;
+    height: 52px;
+    background: linear-gradient(135deg, var(--teal), var(--sky));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20pt;
+    font-weight: 800;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .contact-info h3 {
+    margin-bottom: 2px;
+    color: #fff;
+    font-size: 13pt;
+  }
+
+  .contact-info p {
+    font-size: 10pt;
+    margin-bottom: 0;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .contact-info a {
+    font-size: 10pt;
+    margin-bottom: 0;
+  }
+
+  /* ===== PRINT ===== */
+  @media print {
+    body {
+      background: #07131f !important;
+      color: #f7f9fb !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    .cover {
+      background: #07131f !important;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 30%, rgba(26,168,154,0.15) 0%, transparent 70%) !important,
+        radial-gradient(ellipse 50% 40% at 70% 80%, rgba(58,143,196,0.10) 0%, transparent 60%) !important,
+        #07131f !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    .cover::before {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    .page {
+      background: #fff !important;
+      color: #07131f !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      max-width: 720px !important;
+    }
+    .section-number { color: #1aa89a !important; }
+    h1 { color: #07131f !important; }
+    h1 .highlight {
+      background: linear-gradient(135deg, #15c1b0, #3a8fc4) !important;
+      -webkit-background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+      background-clip: text !important;
+    }
+    h2 {
+      color: #07131f !important;
+      border-bottom-color: rgba(26,168,154,0.3) !important;
+    }
+    h2 .icon {
+      background: linear-gradient(135deg, #1aa89a, #15c1b0) !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    h3 { color: #15c1b0 !important; }
+    p, li, td { color: #334155 !important; }
+    a { color: #15c1b0 !important; }
+    th {
+      background: rgba(26,168,154,0.15) !important;
+      color: #15c1b0 !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    td { color: rgba(255,255,255,0.8) !important; }
+    tr:last-child td { border-bottom: none !important; }
+    td:first-child { color: #fff !important; }
+    ul, ol { color: rgba(255,255,255,0.82) !important; }
+    li { color: rgba(255,255,255,0.82) !important; }
+    ol li::marker { color: #1aa89a !important; }
+    .url-block {
+      background: rgba(26,168,154,0.10) !important;
+      color: #15c1b0 !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    .callout { background: rgba(255,255,255,0.03) !important; }
+    .callout.info {
+      background: rgba(58,143,196,0.12) !important;
+      border-color: rgba(58,143,196,0.25) !important;
+    }
+    .callout.info::before { background: #3a8fc4 !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    .callout.info strong { color: #3a8fc4 !important; }
+    .callout.warn {
+      background: rgba(232,168,56,0.10) !important;
+      border-color: rgba(232,168,56,0.25) !important;
+    }
+    .callout.warn::before { background: #e8a838 !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    .callout.warn strong { color: #e8a838 !important; }
+    .callout p { color: rgba(255,255,255,0.82) !important; }
+    .sep { border-top-color: rgba(255,255,255,0.08) !important; }
+    .two-col > div {
+      background: rgba(26,168,154,0.06) !important;
+      border-color: rgba(26,168,154,0.15) !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    .scenario {
+      background: rgba(255,255,255,0.03) !important;
+      border-left-color: #e0574f !important;
+    }
+    .scenario .label { color: #e0574f !important; }
+    .tip-card {
+      background: linear-gradient(135deg, rgba(26,168,154,0.10), rgba(58,143,196,0.06)) !important;
+      border-color: rgba(26,168,154,0.2) !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    .tip-card::after {
+      background: radial-gradient(circle, rgba(26,168,154,0.3), transparent) !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    .tip-card h4 { color: #15c1b0 !important; }
+    .tip-card p { color: rgba(255,255,255,0.78) !important; }
+    .footnote {
+      background: rgba(255,255,255,0.03) !important;
+      color: rgba(255,255,255,0.4) !important;
+    }
+    .divider {
+      background: #07131f !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    .divider-eyebrow { color: #1aa89a !important; }
+    .divider-title { color: #fff !important; }
+    .divider-title span { color: #15c1b0 !important; }
+    .divider-sub { color: rgba(255,255,255,0.5) !important; }
+    .contact-card {
+      background: linear-gradient(135deg, rgba(26,168,154,0.12), rgba(58,143,196,0.08)) !important;
+      border-color: rgba(26,168,154,0.3) !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    .contact-avatar {
+      background: linear-gradient(135deg, #1aa89a, #3a8fc4) !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    .contact-info h3 { color: #fff !important; }
+    .contact-info p, .contact-info a { color: rgba(255,255,255,0.7) !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-eyebrow">Teacher Manual</div>
+  <h1 class="cover-title">CCST<span> Ticketing</span></h1>
+  <p class="cover-sub">Classroom Help Desk for CCST IT Support — everything instructors need to know</p>
+  <div class="cover-rule"></div>
+  <div class="cover-meta">
+    <div class="cover-meta-item">
+      <div class="cover-meta-label">Live System</div>
+      <div class="cover-meta-value">ccst.website</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="cover-meta-label">Version</div>
+      <div class="cover-meta-value">September 2026</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="cover-meta-label">For</div>
+      <div class="cover-meta-value">Instructors</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 1: WHAT THIS IS -->
+<div class="page">
+  <span class="section-number">SECTION 01</span>
+  <h1>What <span class="highlight">This Is</span></h1>
+
+  <p>CCST Ticketing is a <strong>classroom help desk</strong> for CCST IT Support. Students submit tickets when they have problems. Instructors (teachers) view, manage, and resolve those tickets.</p>
+
+  <p>The system also includes:</p>
+
+  <div class="two-col">
+    <div>
+      <h4>Lab Map</h4>
+      <p>Computer room layout with live device presence</p>
+    </div>
+    <div>
+      <h4>Knowledge Base</h4>
+      <p>Common fixes and how-to guides</p>
+    </div>
+    <div style="grid-column: 1 / -1;">
+      <h4>Portals</h4>
+      <p>Curated links to external tools and resources</p>
+    </div>
+    <div style="grid-column: 1 / -1;">
+      <h4>Progress &amp; Team</h4>
+      <p>KPI tracking, class activity, and user management</p>
+    </div>
+  </div>
+
+  <div class="url-block">https://ccst-ticketing.mohsen-salman099.workers.dev</div>
+  <p style="font-size:9pt; color:rgba(255,255,255,0.4); margin-top:-4px;">Also available at https://ccst.website — works in Chrome, Edge, Safari, Firefox. Students can install it as a web app.</p>
+
+  <hr class="sep">
+
+  <h2>Getting In</h2>
+
+  <h3>Logging In</h3>
+  <ol>
+    <li>Open the CCST Ticketing URL in your browser.</li>
+    <li>Enter your <strong>username</strong> and <strong>password</strong>.</li>
+    <li>Click <strong>Sign in</strong>.</li>
+    <li>You're taken to your dashboard.</li>
+  </ol>
+
+  <div class="callout info">
+    <strong>No account yet?</strong>
+    <p>The system administrator (Mohsen) creates instructor accounts. Ask him to set one up for you.</p>
+  </div>
+
+  <div class="callout warn">
+    <strong>Your account</strong>
+    <p>You should have received your username and password separately. Treat them like any other school system login — don't share them with students.</p>
+  </div>
+
+  <h3>Who Sees What</h3>
+  <table>
+    <tr><th>Role</th><th>What they can do</th></tr>
+    <tr>
+      <td>Student</td>
+      <td>View their own tickets, create new tickets, see the lab map, browse the knowledge base, check portals and progress</td>
+    </tr>
+    <tr>
+      <td>Instructor</td>
+      <td>Everything a student can do, plus: view and manage all tickets, see the full team list, manage knowledge base articles, manage portals, view KPI progress</td>
+    </tr>
+  </table>
+
+  <p>When you log in as an instructor, you get the full set of tools. Students only see what's relevant to them.</p>
+</div>
+
+<!-- DIVIDER -->
+<div class="divider">
+  <div class="divider-eyebrow">Section 02</div>
+  <div class="divider-title">The<span> Dashboard</span></div>
+  <div class="divider-rule"></div>
+  <div class="divider-sub">Your overview of what's happening in the classroom</div>
+</div>
+
+<!-- SECTION 2: DASHBOARD -->
+<div class="page">
+  <span class="section-number">SECTION 02</span>
+  <h1>The <span class="highlight">Dashboard</span></h1>
+
+  <p>When you log in, you land on the <strong>Dashboard</strong>. This is your overview of what's happening.</p>
+
+  <h3>What You'll See</h3>
+  <ul>
+    <li><strong>Ticket stats</strong> — how many tickets are open, pending, resolved, etc. Gives you a quick sense of the current workload.</li>
+    <li><strong>Recent activity</strong> — a snapshot of recent ticket activity so you can see what's moving.</li>
+    <li><strong>Quick links</strong> — shortcuts to the most-used parts of the system.</li>
+  </ul>
+
+  <p>The dashboard updates automatically. If something changes elsewhere, you'll usually see it reflected here without needing to refresh.</p>
+
+  <h3>Navigating</h3>
+  <p>The main navigation is in the sidebar (or top bar on smaller screens). From anywhere, you can jump to:</p>
+
+  <table>
+    <tr><th>Section</th><th>What it is</th></tr>
+    <tr><td>Dashboard</td><td>Your overview</td></tr>
+    <tr><td>Tickets</td><td>View and manage all tickets</td></tr>
+    <tr><td>New Ticket</td><td>Create a ticket on behalf of a student</td></tr>
+    <tr><td>Lab Map</td><td>Computer room layout with live device status</td></tr>
+    <tr><td>Portals</td><td>Links to external tools and resources</td></tr>
+    <tr><td>Team</td><td>List of all users (students and instructors)</td></tr>
+    <tr><td>Progress</td><td>KPI tracking and class progress</td></tr>
+    <tr><td>Knowledge Base</td><td>Articles with common fixes and how-tos</td></tr>
+  </table>
+
+  <p style="font-size:9pt; color:rgba(255,255,255,0.4);">There's also a <strong>logout</strong> option in the menu.</p>
+</div>
+
+<!-- DIVIDER -->
+<div class="divider">
+  <div class="divider-eyebrow">Section 03</div>
+  <div class="divider-title">T<span>ickets</span></div>
+  <div class="divider-rule"></div>
+  <div class="divider-sub">The core of the system — where problems get reported and resolved</div>
+</div>
+
+<!-- SECTION 3: TICKETS -->
+<div class="page">
+  <span class="section-number">SECTION 03</span>
+  <h1>Tickets</h1>
+
+  <p>This is the core of the system — where students report problems and instructors resolve them.</p>
+
+  <h3>Viewing Tickets</h3>
+  <p>Go to <strong>Tickets</strong> to see all tickets. You'll see a list showing:</p>
+  <ul>
+    <li>Ticket ID</li>
+    <li>Student who raised it</li>
+    <li>Title / summary</li>
+    <li>Status (open, pending, resolved, etc.)</li>
+    <li>Priority</li>
+    <li>When it was created and last updated</li>
+  </ul>
+
+  <p>You can filter and search the list to find specific tickets — by student name, by status, or by keyword.</p>
+
+  <h3>Opening a Ticket</h3>
+  <p>Click on any ticket to see the full details:</p>
+  <ul>
+    <li>The full description the student wrote</li>
+    <li>Any comments or updates</li>
+    <li>The current status and priority</li>
+    <li>Which instructor is handling it (if assigned)</li>
+    <li>The timestamp history</li>
+  </ul>
+
+  <p>From the ticket detail view, you can:</p>
+  <ul>
+    <li><strong>Update the status</strong> — move it from open to pending, resolved, etc.</li>
+    <li><strong>Add notes</strong> — leave internal comments or updates visible to the student</li>
+    <li><strong>Assign it</strong> — assign a ticket to a specific instructor</li>
+    <li><strong>Close/resolve it</strong> — mark it as done when the issue is fixed</li>
+  </ul>
+
+  <div class="callout info">
+    <strong>Creating a Ticket for a Student</strong>
+    <p>Sometimes a student comes to you directly and you want to log the issue on their behalf:</p>
+    <ol style="margin-top:6px;">
+      <li>Go to <strong>New Ticket</strong>.</li>
+      <li>Select the <strong>student</strong> the ticket is for.</li>
+      <li>Fill in the <strong>title</strong> — a short summary.</li>
+      <li>Write the <strong>description</strong> — what's happening, what they've tried, any error messages.</li>
+      <li>Set the <strong>priority</strong> if needed.</li>
+      <li>Click <strong>Submit</strong>.</li>
+    </ol>
+    <p style="margin-top:6px;">The ticket is created and the student will see it in their own view.</p>
+  </div>
+
+  <h3>Student Workflow</h3>
+  <ol>
+    <li>They log in with their student account.</li>
+    <li>They go to <strong>New Ticket</strong> and fill in the form — their name is filled in automatically.</li>
+    <li>They submit, and the ticket appears for instructors to see.</li>
+    <li>They can check back to see the status and any updates.</li>
+  </ol>
+</div>
+
+<!-- DIVIDER -->
+<div class="divider">
+  <div class="divider-eyebrow">Section 04</div>
+  <div class="divider-title">Lab<span> Map</span></div>
+  <div class="divider-rule"></div>
+  <div class="divider-sub">The computer room layout with live device presence</div>
+</div>
+
+<!-- SECTION 4: MAP -->
+<div class="page">
+  <span class="section-number">SECTION 04</span>
+  <h1>Lab <span class="highlight">Map</span></h1>
+
+  <p>The <strong>Lab Map</strong> shows the computer room layout as an interactive diagram. Useful for seeing what's happening in the lab at a glance.</p>
+
+  <h3>What It Shows</h3>
+  <ul>
+    <li>The physical layout of the lab — tables, devices, stations</li>
+    <li>Each device/node on the map</li>
+    <li><strong>Live presence</strong> — which devices are currently active or have users logged in</li>
+    <li>Connections between devices (cables, network links, etc.)</li>
+  </ul>
+
+  <h3>Using the Map</h3>
+  <ul>
+    <li><strong>Pan and zoom</strong> to explore the layout.</li>
+    <li><strong>Click on a device</strong> to see more details about it.</li>
+    <li>The map updates in near-real-time, so you can see who's logged in where.</li>
+  </ul>
+
+  <div class="scenario">
+    <span class="label">💡 Live updates</span>
+    <p>If a device disappears from the map or shows as offline, that's reflected in near-real-time. It's a quick way to spot problems before a student reports them.</p>
+  </div>
+
+  <h3>The Console</h3>
+  <p>Some devices on the map have a <strong>console</strong> button. Clicking it opens a console panel for that device — this lets you interact with it directly (run commands, check status, etc.). This is the "hardware bench" feature.</p>
+
+  <p>The map also has a <strong>classic mode</strong> — if you prefer the older version of the map interface, there's an option to switch. Your preference is remembered.</p>
+</div>
+
+<!-- DIVIDER -->
+<div class="divider">
+  <div class="divider-eyebrow">Section 05</div>
+  <div class="divider-title">Knowledge<span> Base</span></div>
+  <div class="divider-rule"></div>
+  <div class="divider-sub">Common fixes, how-to guides, and reference material</div>
+</div>
+
+<!-- SECTION 5: KB + PORTALS -->
+<div class="page">
+  <span class="section-number">SECTION 05</span>
+  <h1>Knowledge <span class="highlight">Base</span></h1>
+
+  <p>The <strong>Knowledge Base</strong> is a collection of articles with helpful information — common fixes, how-to guides, troubleshooting steps, and reference material.</p>
+
+  <h3>Browsing Articles</h3>
+  <ul>
+    <li>Scroll through the list to browse</li>
+    <li>Search by keyword to find relevant articles</li>
+    <li>Click an article to read the full content</li>
+  </ul>
+
+  <p>Articles are written in a simple format and rendered for easy reading.</p>
+
+  <h3>Managing Articles (Instructors)</h3>
+  <ul>
+    <li><strong>Create new articles</strong> — add helpful guides for students</li>
+    <li><strong>Edit existing articles</strong> — update fixes when things change</li>
+    <li><strong>Delete articles</strong> — remove outdated content</li>
+  </ul>
+
+  <div class="callout info">
+    <strong>Build a library</strong>
+    <p>This is useful for building up a library of common solutions so students can often help themselves before needing to raise a ticket.</p>
+  </div>
+
+  <hr class="sep">
+
+  <h2>Portals</h2>
+
+  <p><strong>Portals</strong> are links to external tools and resources that students and staff use. Think of it as a curated starting page — instead of hunting for links, everything is here.</p>
+
+  <h3>What's There</h3>
+  <p>Portals typically include links to:</p>
+  <ul>
+    <li>School systems (learning platform, email, etc.)</li>
+    <li>IT tools (software downloads, remote access, etc.)</li>
+    <li>Reference sites (documentation, guides, etc.)</li>
+  </ul>
+
+  <p>The exact portals depend on what's been configured. Instructors can manage these — add new links, update existing ones, remove ones that are no longer needed.</p>
+</div>
+
+<!-- DIVIDER -->
+<div class="divider">
+  <div class="divider-eyebrow">Section 06</div>
+  <div class="divider-title">Team &amp;<span> Progress</span></div>
+  <div class="divider-rule"></div>
+  <div class="divider-sub">Who's in the system and how the class is doing</div>
+</div>
+
+<!-- SECTION 6: TEAM + PROGRESS -->
+<div class="page">
+  <span class="section-number">SECTION 06</span>
+  <h1>Team &amp; <span class="highlight">Progress</span></h1>
+
+  <h2>Team</h2>
+  <p>The <strong>Team</strong> page shows everyone who has an account on the system — students and instructors.</p>
+
+  <h3>What You Can See</h3>
+  <ul>
+    <li>A list of all users</li>
+    <li>Their role (student or instructor)</li>
+    <li>Their class (for students)</li>
+    <li>Basic info</li>
+  </ul>
+
+  <p>Useful for seeing who's in your class, finding a student's account, or checking who else has instructor access.</p>
+
+  <h2>Progress</h2>
+  <p>The <strong>Progress</strong> page shows KPI tracking and class progress data. This gives you a view of how things are going — which students are active, which topics or areas are being covered, and how the class is progressing overall.</p>
+
+  <p>The exact metrics depend on what's been set up, but the idea is to give you a quick, at-a-glance sense of progress without having to dig through individual tickets or logs.</p>
+
+  <div class="two-col">
+    <div>
+      <h4>Team</h4>
+      <p>See everyone. Find a student. Check who else is an instructor.</p>
+    </div>
+    <div>
+      <h4>Progress</h4>
+      <p>At-a-glance class activity. No digging through tickets required.</p>
+    </div>
+  </div>
+</div>
+
+<!-- DIVIDER -->
+<div class="divider">
+  <div class="divider-eyebrow">Section 07</div>
+  <div class="divider-title">Common<span> Tasks</span></div>
+  <div class="divider-rule"></div>
+  <div class="divider-sub">Real scenarios you'll actually run into</div>
+</div>
+
+<!-- SECTION 7: COMMON TASKS -->
+<div class="page">
+  <span class="section-number">SECTION 07</span>
+  <h1>Common <span class="highlight">Tasks</span></h1>
+
+  <p>Here are the scenarios you'll actually run into, with step-by-step answers.</p>
+
+  <div class="scenario">
+    <span class="label">A student says their computer isn't working — what do I do?</span>
+    <ol>
+      <li>Ask the student to log a ticket (or log one for them from <strong>New Ticket</strong>).</li>
+      <li>Include details: which machine, what happens, any error messages.</li>
+      <li>Check the <strong>Lab Map</strong> to see if the device shows as active or offline.</li>
+      <li>If needed, use the device console from the map to investigate.</li>
+      <li>Once fixed, update the ticket status to resolved and add a note explaining what was done.</li>
+    </ol>
+  </div>
+
+  <div class="scenario">
+    <span class="label">I want students to be able to fix common problems themselves</span>
+    <ol>
+      <li>Go to <strong>Knowledge Base</strong>.</li>
+      <li>Add an article for the common issue — steps to fix it, screenshots if helpful.</li>
+      <li>Tell students to check the knowledge base before raising a ticket for that type of problem.</li>
+      <li>Over time, build up a library of these articles.</li>
+    </ol>
+  </div>
+
+  <div class="scenario">
+    <span class="label">How do I see what my class is working on?</span>
+    <ol>
+      <li>Go to <strong>Progress</strong> to see overall class activity.</li>
+      <li>Go to <strong>Tickets</strong> and filter by your class or by student to see individual issues.</li>
+      <li>The <strong>Dashboard</strong> gives a high-level summary when you first log in.</li>
+    </ol>
+  </div>
+
+  <div class="scenario">
+    <span class="label">A student forgot their password</span>
+    <p>Contact the system administrator (Mohsen). Account passwords are managed by the administrator — there's no self-service password reset for students at the moment.</p>
+  </div>
+</div>
+
+<!-- DIVIDER -->
+<div class="divider">
+  <div class="divider-eyebrow">Section 08</div>
+  <div class="divider-title">Tip<span>s</span></div>
+  <div class="divider-rule"></div>
+  <div class="divider-sub">Small things that make the system work better for you</div>
+</div>
+
+<!-- SECTION 8: TIPS -->
+<div class="page">
+  <span class="section-number">SECTION 08</span>
+  <h1>Tip<span class="highlight">s</span></h1>
+
+  <div class="tip-grid">
+    <div class="tip-card">
+      <h4>Use a mouse</h4>
+      <p>The lab map and some interfaces are easier to use with a pointer than on a touch screen. Works best on a computer.</p>
+    </div>
+    <div class="tip-card">
+      <h4>KB articles save time</h4>
+      <p>If you find yourself explaining the same fix repeatedly, write it up as an article. Next time, send students the link.</p>
+    </div>
+    <div class="tip-card">
+      <h4>Tickets are the record</h4>
+      <p>When you resolve a ticket, add a note about what the problem was and how you fixed it. Helps if the issue comes up again.</p>
+    </div>
+    <div class="tip-card">
+      <h4>Map updates live</h4>
+      <p>A device going offline shows up on the map before a student reports it. Spot problems early.</p>
+    </div>
+    <div class="tip-card" style="grid-column: 1 / -1;">
+      <h4>Log in once per session</h4>
+      <p>You stay logged in while the browser tab is open. If you close it and come back later, you'll need to log in again.</p>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <h2>Getting Help</h2>
+  <p>If something isn't working as expected, or you need an account created/reset, or you want to suggest a feature:</p>
+
+  <div class="contact-card">
+    <div class="contact-avatar">MS</div>
+    <div class="contact-info">
+      <h3>Mohsen Shubar — System Administrator</h3>
+      <p>Email: <a href="mailto:mohsen.salman099@gmail.com">mohsen.salman099@gmail.com</a></p>
+      <p style="margin-top:4px;">For urgent issues during class (e.g., the system is down and students need to log tickets), contact Mohsen directly.</p>
+    </div>
+  </div>
+
+  <div class="footnote">
+    <p>Last updated September 2026. Loading system overhaul — all pages now show smooth skeleton loading states instead of blank screens. Service worker enabled for faster repeat visits. Deploy transitions recover automatically if a student has an old cached version.</p>
+  </div>
+</div>
+
+</body>
+</html>
