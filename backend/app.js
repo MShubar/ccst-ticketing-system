@@ -17,6 +17,7 @@ const dashboardRoutes = require("./routes/dashboard.routes");
 const devicesRoutes = require("./routes/devices.routes");
 const portalsRoutes = require("./routes/portals.routes");
 const metaRoutes = require("./routes/meta.routes");
+const levelsRoutes = require("./routes/levels.routes");
 const { mountStaticRedirects } = require("./lib/static-assets");
 
 /**
@@ -116,6 +117,7 @@ function createApp() {
     }
   };
 
+  app.use("/api/levels", levelsRoutes);
   app.use("/api", authRoutes);
   app.use("/api", dashboardRoutes);
   app.use("/api", metaRoutes);

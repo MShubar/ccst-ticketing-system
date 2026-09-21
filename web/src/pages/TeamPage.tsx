@@ -99,6 +99,7 @@ export default function TeamPage() {
     null
   );
   const mixSaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [levelChangeMsg, setLevelChangeMsg] = useState("");
 
   const { data: attendance } = useQuery({
     queryKey: ["class", "attendance"],
@@ -336,6 +337,28 @@ export default function TeamPage() {
                     }}
                   >
                     Reset password
+                  </Btn>
+                  <Btn
+                    type="button"
+                    onClick={async () => {
+                      const lvl = prompt(`Set level for ${u.fullName} (1-20):`, String(u.level));
+                      if (lvl === null) return;
+                      const n = Number(lvl);
+                      if (!Number.isInteger(n) || n < 1 || n > 20) {
+                        toast.error("Level must be a whole number from 1 to 20.");
+                        return;
+                      }
+                      try {
+                        await api.patch(`/levels/users/${u.id}`, { level: n });
+                        setLevelChangeMsg(`${u.fullName} → Level ${n}.`);
+                        toast.success(`Level set to ${n}.`);
+                        qc.invalidateQueries({ queryKey: ["users"] });
+                      } catch (err) {
+                        toast.error(err instanceof Error ? err.message : "Failed");
+                      }
+                    }}
+                  >
+                    Set level
                   </Btn>
                   <Btn
                     type="button"
@@ -671,6 +694,9 @@ export default function TeamPage() {
         <Hint style={{ marginTop: 12, color: flash ? colors.ok : undefined }}>
           {flash || studentMsg}
         </Hint>
+        {levelChangeMsg ? (
+          <Hint style={{ marginTop: 8, color: colors.teal }}>{levelChangeMsg}</Hint>
+        ) : null}
       </Card>
 
       {roster}

@@ -46,6 +46,14 @@ async function listTickets(db, user, query) {
   if (wantsArchive) await store.ensureTicketArchive(db, user.classId);
 
   let tickets = store.classTickets(db, user.classId, { includeArchive: wantsArchive });
+
+  // Level-based visibility: a student sees only tickets at or below their level.
+  // Instructors and technicians at level 3+ (instructorRole) see everything.
+  const isRestricted = user.role === "technician" && user.level < 3;
+  if (isRestricted) {
+    tickets = tickets.filter((t) => (t.difficulty || 1) <= user.level);
+  }
+
   const { priority, category, assignee, mine, q, review, sla } = query;
   if (mine === "1") tickets = tickets.filter((t) => t.assigneeId === user.id);
   if (review === "pending") tickets = tickets.filter((t) => !t.review || !t.review.body);

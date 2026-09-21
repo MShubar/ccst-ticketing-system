@@ -1,5 +1,11 @@
 export type UserRole = "instructor" | "technician" | "student";
 
+export type CurriculumLevel = {
+  level: number;
+  title: string;
+  description: string;
+};
+
 export type AuthUser = {
   id: string;
   username: string;

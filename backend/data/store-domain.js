@@ -70,7 +70,8 @@ function createTicket(db, classId, fields) {
     closedAt: null,
     escalationLevel: 1,
     channel: fields.channel || "portal",
-    comments: []
+    comments: [],
+    difficulty: Number(fields.difficulty) || 1
   };
   if (fields.generatedBy != null) ticket.generatedBy = fields.generatedBy;
   // The lab fault this ticket was planted with, so it can be put back.

@@ -172,6 +172,7 @@ type TicketRow = {
   assignee?: { fullName?: string };
   sla?: { pending?: boolean; resolveBreached?: boolean; resolveDeadline?: string };
   review?: { mark?: string };
+  difficulty?: number;
 };
 
 export default function TicketsPage() {
@@ -421,7 +422,8 @@ export default function TicketsPage() {
                 {sortHead("sla", "SLA resolve")}
                 {sortHead("assignee", "Assignee")}
                 {sortHead("review", "Review")}
-              </tr>
+                {sortHead("difficulty", "Level")}
+                </tr>
             </thead>
             <tbody>
               {tickets.length ? (
@@ -452,12 +454,15 @@ export default function TicketsPage() {
                       <td>
                         <Badge $bg={reviewColor(t.review?.mark)}>{reviewLabel(t.review?.mark)}</Badge>
                       </td>
+                      <td>
+                        <Mono>L{t.difficulty || 1}</Mono>
+                      </td>
                     </tr>
                   );
                 })
               ) : (
                 <tr>
-                  <td colSpan={8}>
+                  <td colSpan={9}>
                     <Empty>
                       <div>
                         <h3>{instructor ? "No tickets in this view" : "No tickets yet"}</h3>

@@ -47,6 +47,7 @@ import type { MapLabel, MapLink, MapNode, MapPayload } from "@/types/map";
 import { formatWhen } from "@/utils/format";
 import { isInstructorRole } from "@/utils/ticketDisplay";
 import { useAuthStore } from "@/store/auth/authStore";
+import { Card, Hint } from "@/components/ui/primitives";
 
 const ZOOM_MIN = 0.1;
 const ZOOM_MAX = 2.5;
@@ -886,13 +887,20 @@ export default function MapLab() {
       </div>
 
       {consoleDeviceId ? (
-        <DeviceConsole
-          deviceId={consoleDeviceId}
-          onClose={() => {
-            setConsoleDeviceId(null);
-            void refreshLabels();
-          }}
-        />
+        (user?.level ?? 0) >= 9 ? (
+          <DeviceConsole
+            deviceId={consoleDeviceId}
+            onClose={() => {
+              setConsoleDeviceId(null);
+              void refreshLabels();
+            }}
+          />
+        ) : (
+          <Card style={{ maxWidth: 560, margin: "40px auto" }}>
+            <h3>Device console locked</h3>
+            <Hint>Reach Level 9 (Console Access) to open device consoles. You're currently at Level {user?.level || 1}.</Hint>
+          </Card>
+        )
       ) : null}
     </div>
   );

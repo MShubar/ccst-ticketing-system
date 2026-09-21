@@ -16,3 +16,14 @@ export const registerInstructorApi = async (
 export const logoutApi = async (): Promise<void> => {
   await api.post("/logout");
 };
+
+export const updateUserLevelApi = async (
+  userId: string,
+  level: number
+): Promise<{ ok: boolean; user: import("@/types/auth").AuthUser; oldLevel: number; newLevel: number }> => {
+  const response = await api.patch<{ ok: boolean; user: import("@/types/auth").AuthUser; oldLevel: number; newLevel: number }>(
+    `/levels/users/${userId}`,
+    { level }
+  );
+  return response.data;
+};

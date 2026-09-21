@@ -89,7 +89,8 @@ function ticket(fields) {
     subcategory: fields.subcategory,
     tags: fields.tags,
     requesterId: fields.requesterId,
-    channel: fields.channel
+    channel: fields.channel,
+    difficulty: Number(fields.difficulty) || 1
   };
 }
 
@@ -179,7 +180,8 @@ function generatePasswordTickets() {
           ? ["password", pc.name.toLowerCase(), "escalate", "kb-escalate"]
           : ["password", pc.name.toLowerCase(), "kb-password"],
         requesterId: pc.req,
-        channel: CHANNELS[i % CHANNELS.length]
+        channel: CHANNELS[i % CHANNELS.length],
+        difficulty: 3
       })
     );
   }
@@ -341,7 +343,8 @@ function generateCableTickets() {
       subcategory: "Cable",
       tags: ["cable", job.pc.toLowerCase(), "kb-cable"],
       requesterId: job.req,
-      channel: job.channel
+      channel: job.channel,
+      difficulty: 1
     })
   );
 }
@@ -355,7 +358,8 @@ function generateChangeEscalateTickets() {
       subcategory: "VAS SMS",
       tags: ["vas", "sms", "stc", "vas-stc-sms-1", "escalate", "kb-escalate"],
       requesterId: "req-1",
-      channel: "phone"
+      channel: "phone",
+      difficulty: 1
     }),
     ticket({
       title: "Safqa order SMS failed on Batelco VAS-BAT-SMS-2",
@@ -364,7 +368,8 @@ function generateChangeEscalateTickets() {
       subcategory: "VAS SMS",
       tags: ["vas", "sms", "batelco", "vas-bat-sms-2", "safqa", "escalate", "kb-escalate"],
       requesterId: "req-9",
-      channel: "chat"
+      channel: "chat",
+      difficulty: 1
     }),
     ticket({
       title: "Enable Zain SMS-1 VAS-ZAIN-SMS-1",
@@ -373,7 +378,8 @@ function generateChangeEscalateTickets() {
       subcategory: "VAS SMS",
       tags: ["vas", "sms", "zain", "vas-zain-sms-1", "escalate", "kb-escalate"],
       requesterId: "req-5",
-      channel: "portal"
+      channel: "portal",
+      difficulty: 1
     }),
     ticket({
       title: "CBS will not post invoice INV-1002",
@@ -382,7 +388,8 @@ function generateChangeEscalateTickets() {
       subcategory: "CBS",
       tags: ["cbs", "inv-1002", "escalate", "kb-escalate"],
       requesterId: "req-2",
-      channel: "portal"
+      channel: "portal",
+      difficulty: 1
     }),
     ticket({
       title: "Please refund invoice INV-1001 in CBS",
@@ -391,7 +398,8 @@ function generateChangeEscalateTickets() {
       subcategory: "CBS",
       tags: ["cbs", "inv-1001", "refund", "escalate", "kb-escalate"],
       requesterId: "req-2",
-      channel: "email"
+      channel: "email",
+      difficulty: 1
     }),
     ticket({
       title: "CBS will not open",
@@ -400,7 +408,8 @@ function generateChangeEscalateTickets() {
       subcategory: "CBS",
       tags: ["cbs", "escalate", "kb-escalate"],
       requesterId: "req-2",
-      channel: "walk-in"
+      channel: "walk-in",
+      difficulty: 1
     }),
     ticket({
       title: "Please update CRM tonight",
@@ -409,7 +418,8 @@ function generateChangeEscalateTickets() {
       subcategory: "Software update",
       tags: ["change", "update", "crm", "pc-s6", "escalate", "kb-escalate"],
       requesterId: "req-1",
-      channel: "portal"
+      channel: "portal",
+      difficulty: 1
     }),
     ticket({
       title: "Windows update is waiting on the Training PCs",
@@ -418,7 +428,8 @@ function generateChangeEscalateTickets() {
       subcategory: "Software update",
       tags: ["change", "update", "pc-tr3", "batch", "escalate", "kb-escalate"],
       requesterId: "req-11",
-      channel: "walk-in"
+      channel: "walk-in",
+      difficulty: 1
     }),
     ticket({
       title: "Please put the new Safqa version on the server",
@@ -427,7 +438,8 @@ function generateChangeEscalateTickets() {
       subcategory: "Software update",
       tags: ["change", "update", "safqa", "pc-bb1", "escalate", "kb-escalate"],
       requesterId: "req-9",
-      channel: "email"
+      channel: "email",
+      difficulty: 1
     }),
     ticket({
       title: "Please update CBS",
@@ -436,7 +448,8 @@ function generateChangeEscalateTickets() {
       subcategory: "Software update",
       tags: ["change", "update", "cbs", "escalate", "kb-escalate"],
       requesterId: "req-2",
-      channel: "portal"
+      channel: "portal",
+      difficulty: 1
     }),
     ticket({
       title: "Keratin appointment SMS down on stc VAS-STC-SMS-2",
@@ -445,7 +458,8 @@ function generateChangeEscalateTickets() {
       subcategory: "VAS SMS",
       tags: ["vas", "sms", "stc", "vas-stc-sms-2", "escalate", "kb-escalate"],
       requesterId: "req-7",
-      channel: "walk-in"
+      channel: "walk-in",
+      difficulty: 1
     }),
     ticket({
       title: "Warehouse stock SMS failed on Batelco VAS-BAT-SMS-1",
@@ -454,7 +468,8 @@ function generateChangeEscalateTickets() {
       subcategory: "VAS SMS",
       tags: ["vas", "sms", "batelco", "vas-bat-sms-1", "escalate", "kb-escalate"],
       requesterId: "req-6",
-      channel: "phone"
+      channel: "phone",
+      difficulty: 1
     }),
     ticket({
       title: "Branch C receipts failed on Zain VAS-ZAIN-SMS-2",
@@ -463,7 +478,8 @@ function generateChangeEscalateTickets() {
       subcategory: "VAS SMS",
       tags: ["vas", "sms", "zain", "vas-zain-sms-2", "escalate", "kb-escalate"],
       requesterId: "req-10",
-      channel: "chat"
+      channel: "chat",
+      difficulty: 1
     }),
     ticket({
       title: "stc SMS-3 VAS-STC-SMS-3 is sending twice",
@@ -472,7 +488,8 @@ function generateChangeEscalateTickets() {
       subcategory: "VAS SMS",
       tags: ["vas", "sms", "stc", "vas-stc-sms-3", "escalate", "kb-escalate"],
       requesterId: "req-1",
-      channel: "email"
+      channel: "email",
+      difficulty: 1
     }),
     ticket({
       title: "Batelco wants a test SMS on VAS-BAT-SMS-3",
@@ -481,7 +498,8 @@ function generateChangeEscalateTickets() {
       subcategory: "VAS SMS",
       tags: ["vas", "sms", "batelco", "vas-bat-sms-3", "escalate", "kb-escalate"],
       requesterId: "req-5",
-      channel: "portal"
+      channel: "portal",
+      difficulty: 1
     }),
     ticket({
       title: "Keratin photo MMS failed on Batelco VAS-BAT-MMS-1",
@@ -490,7 +508,8 @@ function generateChangeEscalateTickets() {
       subcategory: "VAS MMS",
       tags: ["vas", "mms", "batelco", "vas-bat-mms-1", "escalate", "kb-escalate"],
       requesterId: "req-7",
-      channel: "phone"
+      channel: "phone",
+      difficulty: 1
     }),
     ticket({
       title: "Billing alerts down on stc BMS VAS-STC-BMS-2",
@@ -499,7 +518,8 @@ function generateChangeEscalateTickets() {
       subcategory: "VAS BMS",
       tags: ["vas", "bms", "stc", "vas-stc-bms-2", "escalate", "kb-escalate"],
       requesterId: "req-4",
-      channel: "portal"
+      channel: "portal",
+      difficulty: 1
     }),
     ticket({
       title: "Zain USSD menu is down VAS-ZAIN-USSD-1",
@@ -508,7 +528,8 @@ function generateChangeEscalateTickets() {
       subcategory: "VAS USSD",
       tags: ["vas", "ussd", "zain", "vas-zain-ussd-1", "escalate", "kb-escalate"],
       requesterId: "req-1",
-      channel: "chat"
+      channel: "chat",
+      difficulty: 1
     }),
     ticket({
       title: "CBS totals missing invoice INV-1003",
@@ -517,7 +538,8 @@ function generateChangeEscalateTickets() {
       subcategory: "CBS",
       tags: ["cbs", "inv-1003", "escalate", "kb-escalate"],
       requesterId: "req-3",
-      channel: "portal"
+      channel: "portal",
+      difficulty: 1
     }),
     ticket({
       title: "Please add a new shop till in CBS for Safqa",
@@ -526,7 +548,8 @@ function generateChangeEscalateTickets() {
       subcategory: "CBS",
       tags: ["cbs", "safqa", "escalate", "kb-escalate"],
       requesterId: "req-9",
-      channel: "phone"
+      channel: "phone",
+      difficulty: 1
     }),
     ticket({
       title: "Payroll will not export from CBS",
@@ -535,7 +558,8 @@ function generateChangeEscalateTickets() {
       subcategory: "CBS",
       tags: ["cbs", "payroll", "escalate", "kb-escalate"],
       requesterId: "req-2",
-      channel: "email"
+      channel: "email",
+      difficulty: 1
     }),
     ticket({
       title: "Branch A cannot post invoice INV-1004",
@@ -544,7 +568,8 @@ function generateChangeEscalateTickets() {
       subcategory: "CBS",
       tags: ["cbs", "inv-1004", "escalate", "kb-escalate"],
       requesterId: "req-8",
-      channel: "walk-in"
+      channel: "walk-in",
+      difficulty: 1
     }),
     ticket({
       title: "Please give Finance CBS report access",
@@ -553,7 +578,8 @@ function generateChangeEscalateTickets() {
       subcategory: "CBS",
       tags: ["cbs", "access", "escalate", "kb-escalate"],
       requesterId: "req-2",
-      channel: "portal"
+      channel: "portal",
+      difficulty: 1
     }),
     ticket({
       title: "Please update the mail server tonight",
@@ -562,7 +588,8 @@ function generateChangeEscalateTickets() {
       subcategory: "Software update",
       tags: ["change", "update", "mail", "pc-ops4", "escalate", "kb-escalate"],
       requesterId: "req-4",
-      channel: "portal"
+      channel: "portal",
+      difficulty: 1
     }),
     ticket({
       title: "Antivirus update is waiting on every Ops PC",
@@ -571,7 +598,8 @@ function generateChangeEscalateTickets() {
       subcategory: "Software update",
       tags: ["change", "update", "pc-ops2", "batch", "escalate", "kb-escalate"],
       requesterId: "req-4",
-      channel: "phone"
+      channel: "phone",
+      difficulty: 1
     }),
     ticket({
       title: "Please update Keratin Glow on the server",
@@ -580,7 +608,8 @@ function generateChangeEscalateTickets() {
       subcategory: "Software update",
       tags: ["change", "update", "keratin", "pc-hr2", "escalate", "kb-escalate"],
       requesterId: "req-3",
-      channel: "email"
+      channel: "email",
+      difficulty: 1
     }),
     ticket({
       title: "Need a change window on Sunday for CBS",
@@ -589,7 +618,8 @@ function generateChangeEscalateTickets() {
       subcategory: "Software update",
       tags: ["change", "cbs", "escalate", "kb-escalate"],
       requesterId: "req-5",
-      channel: "portal"
+      channel: "portal",
+      difficulty: 1
     }),
     ticket({
       title: "Branch A cannot reach head office — VPN-BA-IPSEC-1",
@@ -598,7 +628,8 @@ function generateChangeEscalateTickets() {
       subcategory: "VPN",
       tags: ["vpn", "ipsec", "branch-a", "vpn-ba-ipsec-1", "pc-ba3", "escalate", "kb-escalate"],
       requesterId: "req-8",
-      channel: "phone"
+      channel: "phone",
+      difficulty: 1
     }),
     ticket({
       title: "Branch B VPN is down VPN-BB-IPSEC-1",
@@ -607,7 +638,8 @@ function generateChangeEscalateTickets() {
       subcategory: "VPN",
       tags: ["vpn", "ipsec", "branch-b", "vpn-bb-ipsec-1", "pc-bb1", "escalate", "kb-escalate"],
       requesterId: "req-9",
-      channel: "portal"
+      channel: "portal",
+      difficulty: 1
     }),
     ticket({
       title: "Branch C SSL tunnel failed VPN-BC-SSL-1",
@@ -616,7 +648,8 @@ function generateChangeEscalateTickets() {
       subcategory: "VPN",
       tags: ["vpn", "ssl", "branch-c", "vpn-bc-ssl-1", "pc-bc2", "escalate", "kb-escalate"],
       requesterId: "req-10",
-      channel: "chat"
+      channel: "chat",
+      difficulty: 1
     }),
     ticket({
       title: "Remote staff cannot connect VPN-HO-REMOTE-1",
@@ -625,7 +658,8 @@ function generateChangeEscalateTickets() {
       subcategory: "VPN",
       tags: ["vpn", "remote", "vpn-ho-remote-1", "pc-it2", "escalate", "kb-escalate"],
       requesterId: "req-5",
-      channel: "email"
+      channel: "email",
+      difficulty: 1
     }),
     ticket({
       title: "Safqa shop VPN is down VPN-SAFQA-IPSEC-2",
@@ -634,7 +668,8 @@ function generateChangeEscalateTickets() {
       subcategory: "VPN",
       tags: ["vpn", "ipsec", "safqa", "vpn-safqa-ipsec-2", "pc-bb4", "escalate", "kb-escalate"],
       requesterId: "req-9",
-      channel: "phone"
+      channel: "phone",
+      difficulty: 1
     }),
     ticket({
       title: "Keratin Glow VPN failed VPN-KER-SSL-1",
@@ -643,7 +678,8 @@ function generateChangeEscalateTickets() {
       subcategory: "VPN",
       tags: ["vpn", "ssl", "keratin", "vpn-ker-ssl-1", "pc-rec2", "escalate", "kb-escalate"],
       requesterId: "req-7",
-      channel: "walk-in"
+      channel: "walk-in",
+      difficulty: 1
     }),
     ticket({
       title: "Enable Branch A remote VPN-BA-REMOTE-2",
@@ -652,7 +688,8 @@ function generateChangeEscalateTickets() {
       subcategory: "VPN",
       tags: ["vpn", "remote", "branch-a", "vpn-ba-remote-2", "pc-ba2", "escalate", "kb-escalate"],
       requesterId: "req-8",
-      channel: "portal"
+      channel: "portal",
+      difficulty: 1
     }),
     ticket({
       title: "Test Branch B SSL tunnel VPN-BB-SSL-1",
@@ -661,7 +698,8 @@ function generateChangeEscalateTickets() {
       subcategory: "VPN",
       tags: ["vpn", "ssl", "branch-b", "vpn-bb-ssl-1", "pc-it1", "escalate", "kb-escalate"],
       requesterId: "req-5",
-      channel: "portal"
+      channel: "portal",
+      difficulty: 1
     })
   ];
 }
@@ -675,7 +713,8 @@ function generateClassTickets() {
       subcategory: "Internet",
       tags: ["internet", "pc-s1", "kb-internet", "ipconfig"],
       requesterId: "req-1",
-      channel: "portal"
+      channel: "portal",
+      difficulty: 1
     }),
     ticket({
       title: "Internet not working on PC-S2",
@@ -684,7 +723,8 @@ function generateClassTickets() {
       subcategory: "Internet",
       tags: ["internet", "pc-s2", "kb-internet", "ipconfig"],
       requesterId: "req-1",
-      channel: "phone"
+      channel: "phone",
+      difficulty: 1
     }),
     ticket({
       title: "No internet on PC-F1",
@@ -693,7 +733,8 @@ function generateClassTickets() {
       subcategory: "Internet",
       tags: ["internet", "pc-f1", "kb-internet", "ipconfig"],
       requesterId: "req-2",
-      channel: "email"
+      channel: "email",
+      difficulty: 1
     }),
     ticket({
       title: "PC-HR1 has no internet",
@@ -702,7 +743,8 @@ function generateClassTickets() {
       subcategory: "Internet",
       tags: ["internet", "pc-hr1", "kb-internet", "ipconfig"],
       requesterId: "req-3",
-      channel: "chat"
+      channel: "chat",
+      difficulty: 1
     }),
     ticket({
       title: "Internet down on PC-OPS1",
@@ -711,7 +753,8 @@ function generateClassTickets() {
       subcategory: "Internet",
       tags: ["internet", "pc-ops1", "kb-internet", "ipconfig"],
       requesterId: "req-4",
-      channel: "walk-in"
+      channel: "walk-in",
+      difficulty: 1
     }),
     ticket({
       title: "No internet on PC-BA1",
@@ -720,7 +763,8 @@ function generateClassTickets() {
       subcategory: "Internet",
       tags: ["internet", "pc-ba1", "kb-internet", "ipconfig"],
       requesterId: "req-8",
-      channel: "phone"
+      channel: "phone",
+      difficulty: 1
     }),
     ticket({
       title: "Cannot print from PC-S4",
@@ -729,7 +773,8 @@ function generateClassTickets() {
       subcategory: "Print",
       tags: ["printer", "pc-s4", "prn-sales", "kb-printer", "ping"],
       requesterId: "req-1",
-      channel: "email"
+      channel: "email",
+      difficulty: 1
     }),
     ticket({
       title: "Cannot print from PC-F2",
@@ -738,7 +783,8 @@ function generateClassTickets() {
       subcategory: "Print",
       tags: ["printer", "pc-f2", "prn-fin", "kb-printer", "ping"],
       requesterId: "req-2",
-      channel: "portal"
+      channel: "portal",
+      difficulty: 1
     }),
     ticket({
       title: "HR printer not working from PC-HR2",
@@ -747,7 +793,8 @@ function generateClassTickets() {
       subcategory: "Print",
       tags: ["printer", "pc-hr2", "prn-hr", "kb-printer", "ping"],
       requesterId: "req-3",
-      channel: "walk-in"
+      channel: "walk-in",
+      difficulty: 1
     }),
     ticket({
       title: "Cannot reach the cloud from PC-S5",
@@ -756,7 +803,8 @@ function generateClassTickets() {
       subcategory: "Cloud",
       tags: ["cloud", "pc-s5", "kb-cloud", "tracert"],
       requesterId: "req-1",
-      channel: "chat"
+      channel: "chat",
+      difficulty: 1
     }),
     ticket({
       title: "Cannot reach head office from PC-BA2",
@@ -765,7 +813,8 @@ function generateClassTickets() {
       subcategory: "Branch",
       tags: ["branch", "pc-ba2", "kb-internet", "tracert"],
       requesterId: "req-8",
-      channel: "phone"
+      channel: "phone",
+      difficulty: 1
     }),
     ticket({
       title: "PC-TR2 is frozen",
@@ -774,7 +823,8 @@ function generateClassTickets() {
       subcategory: "PC",
       tags: ["pc-frozen", "pc-tr2", "kb-restart"],
       requesterId: "req-11",
-      channel: "walk-in"
+      channel: "walk-in",
+      difficulty: 1
     }),
     ticket({
       title: "PC-WH2 will not respond",
@@ -783,7 +833,8 @@ function generateClassTickets() {
       subcategory: "PC",
       tags: ["pc-frozen", "pc-wh2", "kb-restart"],
       requesterId: "req-6",
-      channel: "phone"
+      channel: "phone",
+      difficulty: 1
     }),
     ticket({
       title: "Company intranet will not open on PC-IT2",
@@ -792,7 +843,8 @@ function generateClassTickets() {
       subcategory: "Cloud",
       tags: ["cloud", "pc-it2", "intranet.procloud.local", "kb-cloud"],
       requesterId: "req-5",
-      channel: "portal"
+      channel: "portal",
+      difficulty: 1
     }),
     ticket({
       title: "Cannot sign in to email from PC-OPS2",
@@ -801,7 +853,8 @@ function generateClassTickets() {
       subcategory: "Mail",
       tags: ["email", "pc-ops2", "kb-email"],
       requesterId: "req-4",
-      channel: "email"
+      channel: "email",
+      difficulty: 1
     }),
     ticket({
       title: "Keratin Glow site will not open on PC-REC2",
@@ -810,7 +863,8 @@ function generateClassTickets() {
       subcategory: "Website",
       tags: ["website", "pc-rec2", "keratinglow.bh", "kb-website"],
       requesterId: "req-7",
-      channel: "walk-in"
+      channel: "walk-in",
+      difficulty: 1
     }),
     ...generateCableTickets(),
     ticket({
@@ -820,7 +874,8 @@ function generateClassTickets() {
       subcategory: "Share",
       tags: ["share", "pc-ba3", "kb-share"],
       requesterId: "req-8",
-      channel: "portal"
+      channel: "portal",
+      difficulty: 1
     }),
     ticket({
       title: "Safqa will not open",
@@ -829,7 +884,8 @@ function generateClassTickets() {
       subcategory: "Website",
       tags: ["website", "pc-bb3", "safqa.bh", "kb-website"],
       requesterId: "req-9",
-      channel: "chat"
+      channel: "chat",
+      difficulty: 1
     }),
     ticket({
       title: "The printer light is on but I cannot reach it",
@@ -838,7 +894,8 @@ function generateClassTickets() {
       subcategory: "Print",
       tags: ["printer", "pc-rec3", "prn-rec", "kb-printer", "ping"],
       requesterId: "req-7",
-      channel: "walk-in"
+      channel: "walk-in",
+      difficulty: 1
     }),
     ticket({
       title: "No internet on PC-S1, PC-S2 and PC-S3",
@@ -847,7 +904,8 @@ function generateClassTickets() {
       subcategory: "Internet",
       tags: ["internet", "batch", "escalate", "kb-escalate"],
       requesterId: "req-1",
-      channel: "phone"
+      channel: "phone",
+      difficulty: 1
     }),
     ticket({
       title: "All floors are slow — maybe the core",
@@ -856,7 +914,8 @@ function generateClassTickets() {
       subcategory: "Core",
       tags: ["core", "pc-f3", "escalate", "kb-escalate"],
       requesterId: "req-2",
-      channel: "monitoring"
+      channel: "monitoring",
+      difficulty: 1
     }),
     ticket({
       title: "Need a new user account and a new VLAN",
@@ -865,7 +924,8 @@ function generateClassTickets() {
       subcategory: "Access request",
       tags: ["access", "vlan", "escalate", "kb-escalate"],
       requesterId: "req-3",
-      channel: "portal"
+      channel: "portal",
+      difficulty: 1
     }),
     ticket({
       title: "Whole of Branch B cannot reach head office",
@@ -874,7 +934,8 @@ function generateClassTickets() {
       subcategory: "Branch",
       tags: ["branch", "pc-bb1", "batch", "escalate", "kb-escalate"],
       requesterId: "req-9",
-      channel: "phone"
+      channel: "phone",
+      difficulty: 1
     }),
     ticket({
       title: "Strange files on PC-BC1 after a USB stick",
@@ -883,7 +944,8 @@ function generateClassTickets() {
       subcategory: "Malware",
       tags: ["security", "pc-bc1", "escalate", "kb-escalate"],
       requesterId: "req-10",
-      channel: "walk-in"
+      channel: "walk-in",
+      difficulty: 1
     }),
     ...generateChangeEscalateTickets(),
     ...generatePasswordTickets(),
@@ -894,7 +956,8 @@ function generateClassTickets() {
       subcategory: "Cloud",
       tags: ["cloud", "pc-hr4", "kb-cloud", "tracert"],
       requesterId: "req-3",
-      channel: "chat"
+      channel: "chat",
+      difficulty: 1
     }),
     ticket({
       title: "Cannot reach the cloud from PC-OPS4",
@@ -903,7 +966,8 @@ function generateClassTickets() {
       subcategory: "Cloud",
       tags: ["cloud", "pc-ops4", "kb-cloud", "tracert"],
       requesterId: "req-4",
-      channel: "phone"
+      channel: "phone",
+      difficulty: 1
     }),
     ticket({
       title: "Path to head office failed from PC-WH3",
@@ -912,7 +976,8 @@ function generateClassTickets() {
       subcategory: "WAN",
       tags: ["cloud", "pc-wh3", "kb-cloud", "tracert"],
       requesterId: "req-6",
-      channel: "portal"
+      channel: "portal",
+      difficulty: 1
     }),
     ticket({
       title: "Training cannot reach the cloud from PC-TR3",
@@ -921,7 +986,8 @@ function generateClassTickets() {
       subcategory: "Cloud",
       tags: ["cloud", "pc-tr3", "kb-cloud", "tracert"],
       requesterId: "req-11",
-      channel: "walk-in"
+      channel: "walk-in",
+      difficulty: 1
     }),
     ticket({
       title: "Path to Branch A failed from PC-IT2",
@@ -930,7 +996,8 @@ function generateClassTickets() {
       subcategory: "Branch",
       tags: ["branch", "pc-it2", "kb-internet", "tracert"],
       requesterId: "req-5",
-      channel: "chat"
+      channel: "chat",
+      difficulty: 1
     }),
     ticket({
       title: "Branch C cannot reach head office from PC-BC2",
@@ -939,7 +1006,8 @@ function generateClassTickets() {
       subcategory: "Branch",
       tags: ["branch", "pc-bc2", "kb-internet", "tracert"],
       requesterId: "req-10",
-      channel: "phone"
+      channel: "phone",
+      difficulty: 1
     })
   ];
 }
@@ -950,10 +1018,37 @@ function sampleTickets() {
 
 const { kbArticles } = require("./seed-kb");
 
+/** 1-20 level progression curriculum for CCST students.
+ *  Each entry: level number, title, one-line description.
+ *  Served by /api/levels/curriculum and used by the frontend progress UI. */
+const CURRICULUM = [
+  { level: 1, title: "Creating Tickets", description: "Log in, fill the ticket form, submit a clear problem report." },
+  { level: 2, title: "Queue Management", description: "View the ticket queue, read statuses, search and filter tickets." },
+  { level: 3, title: "Password Reset", description: "Verify identity and process a password reset for a user." },
+  { level: 4, title: "CBS", description: "Use the CBS system: navigate it, run basic operations, understand its purpose." },
+  { level: 5, title: "PC Maintenance (Hardware)", description: "Open a PC, identify components (RAM, disk, PSU, motherboard), swap and reinstall parts safely." },
+  { level: 6, title: "Advanced PC Maintenance (Hardware)", description: "Diagnose hardware failures with tools, replace components under constraints, handle destroyed hardware." },
+  { level: 7, title: "Using the Map", description: "Pan and zoom the lab map, click devices, read live status, locate machines and trace topology." },
+  { level: 8, title: "Cross & Straight-Through Cables", description: "Identify cable types, know when each is used, terminate or test a cable." },
+  { level: 9, title: "PC IP Address Setting", description: "Configure static IP, subnet mask, and gateway on a PC; verify connectivity after setting." },
+  { level: 10, title: "Console Access", description: "Open a device console from the map, run basic commands, read and understand the output." },
+  { level: 11, title: "Intermediate Diagnostics", description: "Combine console output, map info, and ticket context to narrow down a problem." },
+  { level: 12, title: "Port / Interface Level", description: "Read port status, VLANs, and link state on switch/router via console; identify bad ports." },
+  { level: 13, title: "Cable Testing & Certification", description: "Use a cable tester, certify a cable, interpret results, identify opens, shorts, and crosstalk." },
+  { level: 14, title: "Switch Configuration Basics", description: "Configure a switch port: VLAN assignment, description, enable/disable, speed and duplex." },
+  { level: 15, title: "Router Basics", description: "Read a routing table, understand default gateway, use basic router CLI, trace between segments." },
+  { level: 16, title: "Wireless Fundamentals", description: "Identify APs on the map, understand SSIDs, troubleshoot wireless, read signal strength." },
+  { level: 17, title: "Server / VM Basics", description: "Identify servers and VMs on the map, understand their role, run basic service checks." },
+  { level: 18, title: "Multi-Device Scenarios", description: "Diagnose a problem that spans multiple devices, cables, and segments across the topology." },
+  { level: 19, title: "Full Incident Response", description: "Go from an ambiguous report to resolution independently: diagnose, fix, document, verify." },
+  { level: 20, title: "Senior / Operator Level", description: "Handle complex multi-issue incidents, make configuration decisions, mentor lower-level students." }
+];
+
 module.exports = {
   requesters,
   slaPolicy,
   sampleTickets,
   labPcs,
-  kbArticles
+  kbArticles,
+  CURRICULUM
 };

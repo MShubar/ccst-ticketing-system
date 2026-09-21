@@ -6,7 +6,7 @@ import { toast } from "sonner";
 
 import { api } from "@/api/client";
 import Loader from "@/components/common/Loader";
-import { Btn, Card, Field } from "@/components/ui/primitives";
+import { Btn, Card, Field, Hint } from "@/components/ui/primitives";
 import { ROUTES } from "@/constants/routes";
 import { usePageReady } from "@/nav/PageReadyContext";
 import { useUsers } from "@/services/queries/classroom";
@@ -135,6 +135,17 @@ export default function NewTicketPage() {
       <Field>
         <label>Tags</label>
         <input name="tags" placeholder="printer, driver, finance" />
+      </Field>
+      <Field>
+        <label>Difficulty (1-20)</label>
+        <select name="difficulty" defaultValue="1">
+          {Array.from({ length: 20 }, (_, i) => i + 1).map((n) => (
+            <option key={n} value={n}>
+              Level {n}
+            </option>
+          ))}
+        </select>
+        <Hint>Higher = more advanced. Students only see tickets at or below their level.</Hint>
       </Field>
       <Btn type="submit" $variant="teal" disabled={busy} $busy={busy}>Log ticket</Btn>
     </Card>

@@ -79,7 +79,8 @@ function toTicketListItem(enriched, viewer) {
     sla,
     review,
     commentCount,
-    tags: Array.isArray(enriched.tags) ? enriched.tags.slice(0, 8) : []
+    tags: Array.isArray(enriched.tags) ? enriched.tags.slice(0, 8) : [],
+    difficulty: enriched.difficulty || 1
   };
 
   if (viewer && viewer.role === "instructor" && enriched.generatedBy) {
