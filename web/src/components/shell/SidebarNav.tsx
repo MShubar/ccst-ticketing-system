@@ -13,6 +13,7 @@ type Props = {
   classLabel: string;
   currentPath: string;
   onNavigate: (to: string) => void;
+  onCloseMobile?: () => void;
   items?: NavItem[];
   mobileOpen?: boolean;
 };
@@ -21,6 +22,7 @@ export default function SidebarNav({
   classLabel,
   currentPath,
   onNavigate,
+  onCloseMobile,
   items = SIDEBAR_NAV,
   mobileOpen = false,
 }: Props) {
@@ -29,7 +31,7 @@ export default function SidebarNav({
       {mobileOpen && (
         <button
           type="button"
-          onClick={() => onNavigate("")}
+          onClick={() => { onNavigate(""); onCloseMobile?.(); }}
           style={{
             position: "absolute",
             top: 16,

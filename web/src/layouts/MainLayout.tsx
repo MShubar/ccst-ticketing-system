@@ -40,6 +40,8 @@ function MainLayoutShell() {
           classLabel={classLabel}
           currentPath={optimisticPath}
           onNavigate={go}
+          onCloseMobile={() => setMobileNavOpen(false)}
+          mobileOpen={mobileNavOpen}
         />
         <Workspace>
           <Topbar>
