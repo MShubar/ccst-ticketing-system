@@ -248,6 +248,30 @@ export default function TeamPage() {
             >
               Download all KPI PDFs
             </Btn>
+            <Btn
+              type="button"
+              $variant="secondary"
+              onClick={async () => {
+                const lvl = prompt(`Set your level (1-20):`, String(user?.level || 1));
+                if (lvl === null) return;
+                const n = Number(lvl);
+                if (!Number.isInteger(n) || n < 1 || n > 20) {
+                  toast.error("Level must be a whole number from 1 to 20.");
+                  return;
+                }
+                try {
+                  const uid = user?.id;
+                  if (!uid) { toast.error("Not logged in."); return; }
+                  await api.patch(`/levels/users/${uid}`, { level: n });
+                  toast.success(`Your level set to ${n}.`);
+                  qc.invalidateQueries({ queryKey: ["users"] });
+                } catch (err) {
+                  toast.error(err instanceof Error ? err.message : "Failed");
+                }
+              }}
+            >
+              Set my level
+            </Btn>
           </div>
         ) : null}
       </div>
@@ -270,110 +294,75 @@ export default function TeamPage() {
               <td>L{u.level}</td>
               {instructor && u.role === "technician" ? (
                 <td style={{ whiteSpace: "nowrap" }}>
-                  <Btn
-                    type="button"
-                    onClick={async (ev) => {
-                      const force = ev.shiftKey;
-                      if (
-                        !confirm(
-                          force
-                            ? `Overwrite AI/instructor reviews for every ticket assigned to ${u.fullName}?`
-                            : `Ask AI to review every unreviewed ticket for ${u.fullName}?\n\n(Shift-click to overwrite existing reviews too.)`
-                        )
-                      )
-                        return;
-                      try {
-                        const { data: res } = await api.post<{ reviewed: number; skipped?: number; warning?: string }>(
-                          `/students/${u.id}/review/ai`,
-                          { force }
-                        );
-                        toast.success(
-                          `Reviewed ${res.reviewed} ticket(s)${res.skipped ? `, skipped ${res.skipped} already reviewed` : ""}.`
-                        );
-                        qc.invalidateQueries();
-                      } catch (err) {
-                        toast.error(err instanceof Error ? err.message : "Failed");
-                      }
-                    }}
-                  >
-                    AI review
-                  </Btn>
-                  <Btn
-                    type="button"
-                    onClick={async () => {
-                      try {
-                        const { data } = await api.get<{ items: Array<Record<string, string>> }>(
-                          `/students/${u.id}/activity`
-                        );
-                        setTimeline({ name: u.fullName, items: data.items || [] });
-                      } catch (err) {
-                        toast.error(err instanceof Error ? err.message : "Failed");
-                      }
-                    }}
-                  >
-                    Timeline
-                  </Btn>
-                  <Btn
-                    type="button"
-                    onClick={() =>
-                      downloadFile(`/students/${u.id}/kpis/pdf`, `kpi-${u.username}.pdf`).catch((e) =>
-                        toast.error(e.message)
-                      )
-                    }
-                  >
-                    KPI PDF
-                  </Btn>
-                  <Btn
-                    type="button"
-                    onClick={async () => {
-                      const password = prompt("New password (min 6 characters):");
-                      if (!password) return;
-                      try {
-                        await api.patch(`/students/${u.id}/password`, { password });
-                        toast.success("Password updated.");
-                      } catch (err) {
-                        toast.error(err instanceof Error ? err.message : "Failed");
-                      }
-                    }}
-                  >
-                    Reset password
-                  </Btn>
-                  <Btn
-                    type="button"
-                    onClick={async () => {
-                      const lvl = prompt(`Set level for ${u.fullName} (1-20):`, String(u.level));
-                      if (lvl === null) return;
-                      const n = Number(lvl);
-                      if (!Number.isInteger(n) || n < 1 || n > 20) {
-                        toast.error("Level must be a whole number from 1 to 20.");
-                        return;
-                      }
-                      try {
-                        await api.patch(`/levels/users/${u.id}`, { level: n });
-                        setLevelChangeMsg(`${u.fullName} → Level ${n}.`);
-                        toast.success(`Level set to ${n}.`);
-                        qc.invalidateQueries({ queryKey: ["users"] });
-                      } catch (err) {
-                        toast.error(err instanceof Error ? err.message : "Failed");
-                      }
-                    }}
-                  >
-                    Set level
-                  </Btn>
-                  <Btn
-                    type="button"
-                    onClick={async () => {
-                      if (!confirm("Remove this student from the class?")) return;
-                      try {
-                        await api.delete(`/students/${u.id}`);
-                        qc.invalidateQueries({ queryKey: ["users"] });
-                      } catch (err) {
-                        toast.error(err instanceof Error ? err.message : "Failed");
-                      }
-                    }}
-                  >
-                    Remove
-                  </Btn>
+                  <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+                    <Btn
+                      type="button"
+                      onClick={async () => {
+                        try {
+                          const { data } = await api.get<{ items: Array<Record<string, string>> }>(
+                            `/students/${u.id}/activity`
+                          );
+                          setTimeline({ name: u.fullName, items: data.items || [] });
+                        } catch (err) {
+                          toast.error(err instanceof Error ? err.message : "Failed");
+                        }
+                      }}
+                    >
+                      Timeline
+                    </Btn>
+                    <Btn
+                      type="button"
+                      onClick={async () => {
+                        const password = prompt("New password (min 6 characters):");
+                        if (!password) return;
+                        try {
+                          await api.patch(`/students/${u.id}/password`, { password });
+                          toast.success("Password updated.");
+                        } catch (err) {
+                          toast.error(err instanceof Error ? err.message : "Failed");
+                        }
+                      }}
+                    >
+                      Reset password
+                    </Btn>
+                    <Btn
+                      type="button"
+                      onClick={async () => {
+                        const lvl = prompt(`Set level for ${u.fullName} (1-20):`, String(u.level));
+                        if (lvl === null) return;
+                        const n = Number(lvl);
+                        if (!Number.isInteger(n) || n < 1 || n > 20) {
+                          toast.error("Level must be a whole number from 1 to 20.");
+                          return;
+                        }
+                        try {
+                          await api.patch(`/levels/users/${u.id}`, { level: n });
+                          setLevelChangeMsg(`${u.fullName} → Level ${n}.`);
+                          toast.success(`Level set to ${n}.`);
+                          qc.invalidateQueries({ queryKey: ["users"] });
+                        } catch (err) {
+                          toast.error(err instanceof Error ? err.message : "Failed");
+                        }
+                      }}
+                    >
+                      Set level
+                    </Btn>
+                    <Btn
+                      type="button"
+                      $variant="danger"
+                      onClick={async () => {
+                        if (!confirm("Remove this student from the class?")) return;
+                        try {
+                          await api.delete(`/students/${u.id}`);
+                          qc.invalidateQueries({ queryKey: ["users"] });
+                        } catch (err) {
+                          toast.error(err instanceof Error ? err.message : "Failed");
+                        }
+                      }}
+                    >
+                      Remove
+                    </Btn>
+                  </div>
                 </td>
               ) : instructor ? (
                 <td />
