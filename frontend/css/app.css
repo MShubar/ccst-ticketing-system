@@ -1045,8 +1045,8 @@ table.kb-table tr:last-child td { border-bottom: 0; }
 }
 .lab-map {
   display: block;
-  width: 1920px;
-  min-width: 100%;
+  width: 100%;
+  min-width: 1920px;
   height: auto;
   background:
     radial-gradient(900px 320px at 12% 8%, rgba(26,168,154,0.10), transparent 50%),
