@@ -357,6 +357,29 @@ export default function TeamPage() {
                     >
                       Remove
                     </Btn>
+                    {u.role === "technician" ? (
+                      <Btn
+                        type="button"
+                        onClick={async () => {
+                          const lvl = prompt(`Set level for ${u.fullName} (1-20):`, String(u.level));
+                          if (lvl === null) return;
+                          const n = Number(lvl);
+                          if (!Number.isInteger(n) || n < 1 || n > 20) {
+                            toast.error("Level must be a whole number from 1 to 20.");
+                            return;
+                          }
+                          try {
+                            await api.patch(`/levels/users/${u.id}`, { level: n });
+                            toast.success(`Level set to ${n}.`);
+                            qc.invalidateQueries({ queryKey: ["users"] });
+                          } catch (err) {
+                            toast.error(err instanceof Error ? err.message : "Failed");
+                          }
+                        }}
+                      >
+                        Set level
+                      </Btn>
+                    ) : null}
                   </div>
                 </td>
               ) : instructor ? (
