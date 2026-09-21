@@ -394,7 +394,6 @@ export default function TicketsPage() {
         ) : null}
         <input type="hidden" name="sort" value={queryObj.sort || ""} />
         <input type="hidden" name="dir" value={queryObj.sort ? sortDir : ""} />
-        <Btn type="submit" $variant="secondary">Apply</Btn>
         <Btn type="button" $variant="secondary" onClick={resetFilters}>
           Reset filters
         </Btn>
