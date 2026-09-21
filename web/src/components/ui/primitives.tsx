@@ -44,8 +44,10 @@ export const Field = styled.div`
     border: 1px solid ${({ theme }) => theme.colors.line};
     border-radius: ${({ theme }) => theme.radii.sm};
     padding: 10px 12px;
-    background: ${({ theme }) => theme.colors.white};
+    background: #ffffff;
     color: ${({ theme }) => theme.colors.ink};
+    font-family: inherit;
+    font-size: inherit;
   }
 
   input:focus,
@@ -53,6 +55,12 @@ export const Field = styled.div`
   textarea:focus {
     outline: 2px solid ${({ theme }) => theme.colors.teal};
     outline-offset: 1px;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: ${({ theme }) => theme.colors.muted};
+    opacity: 0.7;
   }
 `;
 
