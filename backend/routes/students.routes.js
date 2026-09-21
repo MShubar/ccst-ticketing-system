@@ -56,7 +56,7 @@ router.delete("/:id", requireAuth, requireInstructor, async (req, res) => {
   await store.withDb(async (db) => {
     db.__allowDeletes = true;
     const student = db.users.find(
-      (u) => u.id === req.params.id && u.classId === req.user.classId && u.role === "technician"
+      (u) => u.id === req.params.id && u.classId === req.user.classId && (u.role === "technician" || u.id === req.user.id)
     );
     if (!student) throw notFound("Student not found in your class.");
     db.tickets = db.tickets.filter(
@@ -72,7 +72,7 @@ router.patch("/:id/password", requireAuth, requireInstructor, async (req, res) =
   const { password } = parseResetPasswordBody(req.body);
   const user = await store.withDb(async (db) => {
     const student = db.users.find(
-      (u) => u.id === req.params.id && u.classId === req.user.classId && u.role === "technician"
+      (u) => u.id === req.params.id && u.classId === req.user.classId && (u.role === "technician" || u.id === req.user.id)
     );
     if (!student) throw notFound("Student not found in your class.");
     await store.setUserPassword(student.id, password);
@@ -89,20 +89,20 @@ router.patch("/:id/level", requireAuth, requireInstructor, async (req, res) => {
   }
   let oldLevel;
   const student = await store.withDb(async (db) => {
-    const u = db.users.find(
-      (u) => u.id === req.params.id && u.classId === req.user.classId && u.role === "technician"
+    const target = db.users.find(
+      (u) => u.id === req.params.id && u.classId === req.user.classId && (u.role === "technician" || u.id === req.user.id)
     );
-    if (!u) throw notFound("Student not found in your class.");
-    oldLevel = u.level;
-    u.level = level;
-    u.updatedAt = new Date().toISOString();
+    if (!target) throw notFound("Student not found in your class.");
+    oldLevel = target.level;
+    target.level = level;
+    target.updatedAt = new Date().toISOString();
     await store.writeDb(db);
     store.logActivity(db, req.user.classId, {
       userId: req.user.id,
       type: "level_change",
-      summary: `${req.user.fullName} set ${u.fullName}'s level from ${oldLevel} to ${level}.`,
+      summary: `${req.user.fullName} set ${target.fullName}'s level from ${oldLevel} to ${level}.`,
     });
-    return toPublicUser(u, db);
+    return toPublicUser(target, db);
   });
   res.json({ ok: true, user: student, oldLevel, newLevel: level });
 });

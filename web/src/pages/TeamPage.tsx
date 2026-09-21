@@ -272,7 +272,29 @@ export default function TeamPage() {
             >
               Set my level
             </Btn>
-          </div>
+            <Btn
+              type="button"
+              $variant="secondary"
+              onClick={async () => {
+                const password = prompt("New password (min 6 characters):");
+                if (!password) return;
+                if (password.length < 6) {
+                  toast.error("Password must be at least 6 characters.");
+                  return;
+                }
+                try {
+                  const uid = user?.id;
+                  if (!uid) { toast.error("Not logged in."); return; }
+                  await api.patch(`/students/${uid}/password`, { password });
+                  toast.success("Your password has been updated.");
+                } catch (err) {
+                  toast.error(err instanceof Error ? err.message : "Failed");
+                }
+              }}
+            >
+              Reset my password
+            </Btn>
+            </div>
         ) : null}
       </div>
       <Table>

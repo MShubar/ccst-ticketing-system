@@ -26,7 +26,7 @@ router.patch("/users/:id", requireAuth, requireInstructor, async (req, res) => {
   const targetId = req.body.userId || req.params.id;
   const db = await loadDb(req);
   const user = db.users.find(
-    (u) => u.id === targetId && u.classId === req.user.classId && u.role === "technician"
+    (u) => u.id === targetId && u.classId === req.user.classId && (u.role === "technician" || u.id === req.user.id)
   );
   if (!user) throw notFound("Student not found in your class.");
   const old = user.level;
