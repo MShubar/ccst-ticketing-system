@@ -169,6 +169,46 @@ export const MobileNavOverlay = styled.div<{ $open?: boolean }>`
   }
 `;
 
+export const CloseButton = styled.button`
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 34px;
+  height: 34px;
+  border-radius: ${({ theme }) => theme.radii.sm};
+  border: 1px solid ${({ theme }) => theme.colors.line};
+  background: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.ink};
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.1s ease;
+
+  &:hover {
+    background: ${({ theme }) => theme.colors.paper2};
+    border-color: ${({ theme }) => theme.colors.teal};
+  }
+
+  &:active {
+    transform: scale(0.94);
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+    stroke: ${({ theme }) => theme.colors.ink};
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+  }
+`;
+
 export const AlertBox = styled.div<{ $variant?: "warning" | "announce" }>`
   border-radius: ${({ theme }) => theme.radii.md};
   padding: 12px 14px;

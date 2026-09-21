@@ -6,8 +6,8 @@ import {
   NavLink,
   NavList,
   SidebarRoot,
+  CloseButton,
 } from "@/components/shell/shell.styles";
-import { colors } from "@/theme/colors";
 
 type Props = {
   classLabel: string;
@@ -29,24 +29,12 @@ export default function SidebarNav({
   return (
     <SidebarRoot $mobileOpen={mobileOpen}>
       {mobileOpen && (
-        <button
-          type="button"
-          onClick={() => { onNavigate(""); onCloseMobile?.(); }}
-          style={{
-            position: "absolute",
-            top: 16,
-            right: 16,
-            padding: "6px 10px",
-            fontSize: 18,
-            border: "1px solid " + colors?.line || "#d9d1c3",
-            borderRadius: "4px",
-            background: "#ffffff",
-            cursor: "pointer",
-            color: "#17202a",
-          }}
-        >
-          ✕
-        </button>
+        <CloseButton type="button" onClick={() => { onNavigate(""); onCloseMobile?.(); }}>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <line x1="6" y1="6" x2="18" y2="18" />
+            <line x1="18" y1="6" x2="6" y2="18" />
+          </svg>
+        </CloseButton>
       )}
       <div>
         <BrandKicker>ProCloud</BrandKicker>
