@@ -185,7 +185,14 @@ export default function TicketsPage() {
 
   const queryObj = useMemo(() => Object.fromEntries(searchParams.entries()), [searchParams]);
   const hasView = TICKET_VIEW_KEYS.some((k) => queryObj[k]);
-  const [searchValue, setSearchValue] = useState(queryObj.q || "");
+  const [filterState, setFilterState] = useState({
+    q: queryObj.q || "",
+    priority: queryObj.priority || "",
+    status: queryObj.status || "",
+    mine: queryObj.mine || "",
+    sla: queryObj.sla || "",
+    review: queryObj.review || "",
+  });
 
   useEffect(() => {
     if (restored.current) return;
@@ -330,59 +337,34 @@ export default function TicketsPage() {
         <input
           name="q"
           placeholder="Search title, tag, requester…"
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
+          value={filterState.q}
+          onChange={(e) => setFilterState(f => ({ ...f, q: e.target.value }))}
         />
-        <select name="priority" value={queryObj.priority || ""} onChange={(e) => {
-          const p = new URLSearchParams(searchParams);
-          if (e.target.value) p.set("priority", e.target.value);
-          else p.delete("priority");
-          setSearchParams(p);
-        }}>
+        <select name="priority" value={filterState.priority} onChange={(e) => setFilterState(f => ({ ...f, priority: e.target.value }))}>
           <option value="">All priorities</option>
           <option value="unassigned">Unassigned</option>
           {["critical", "high", "medium", "low"].map((p) => (
             <option key={p} value={p}>{p}</option>
           ))}
         </select>
-        <select name="status" value={queryObj.status || ""} onChange={(e) => {
-          const p = new URLSearchParams(searchParams);
-          if (e.target.value) p.set("status", e.target.value);
-          else p.delete("status");
-          setSearchParams(p);
-        }}>
+        <select name="status" value={filterState.status} onChange={(e) => setFilterState(f => ({ ...f, status: e.target.value }))}>
           <option value="">All statuses</option>
           {["new", "open", "pending", "escalated", "resolved", "closed"].map((s) => (
             <option key={s} value={s}>{s}</option>
           ))}
         </select>
-        <select name="mine" value={queryObj.mine || ""} onChange={(e) => {
-          const p = new URLSearchParams(searchParams);
-          if (e.target.value) p.set("mine", e.target.value);
-          else p.delete("mine");
-          setSearchParams(p);
-        }}>
+        <select name="mine" value={filterState.mine} onChange={(e) => setFilterState(f => ({ ...f, mine: e.target.value }))}>
           <option value="">Whole queue</option>
           <option value="1">Assigned to me</option>
         </select>
-        <select name="sla" value={queryObj.sla || ""} onChange={(e) => {
-          const p = new URLSearchParams(searchParams);
-          if (e.target.value) p.set("sla", e.target.value);
-          else p.delete("sla");
-          setSearchParams(p);
-        }}>
+        <select name="sla" value={filterState.sla} onChange={(e) => setFilterState(f => ({ ...f, sla: e.target.value }))}>
           <option value="">All SLAs</option>
           <option value="past">Past SLA</option>
           <option value="ok">On track</option>
           <option value="pending">Awaiting priority</option>
         </select>
         {instructor ? (
-          <select name="review" value={queryObj.review || ""} onChange={(e) => {
-            const p = new URLSearchParams(searchParams);
-            if (e.target.value) p.set("review", e.target.value);
-            else p.delete("review");
-            setSearchParams(p);
-          }}>
+          <select name="review" value={filterState.review} onChange={(e) => setFilterState(f => ({ ...f, review: e.target.value }))}>
             <option value="">All reviews</option>
             <option value="pending">Needs review</option>
             <option value="done">Reviewed</option>
