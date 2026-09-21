@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import type { FormEvent } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 
@@ -262,13 +261,13 @@ export default function TicketsPage() {
     setSearchParams(p);
   };
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const fd = new FormData(e.currentTarget);
+  const applyFilters = () => {
     const next = new URLSearchParams();
-    for (const [k, v] of fd.entries()) {
-      if (v) next.set(k, String(v));
+    for (const [k, v] of Object.entries(filterState)) {
+      if (v) next.set(k, v);
     }
+    if (queryObj.sort) next.set("sort", queryObj.sort);
+    if (queryObj.dir) next.set("dir", queryObj.dir);
     try {
       sessionStorage.setItem(ticketViewStoreKey(user?.id), next.toString());
     } catch {
@@ -333,7 +332,7 @@ export default function TicketsPage() {
 
   return (
     <>
-      <Filters id="filter-form" onSubmit={onSubmit}>
+      <Filters id="filter-form" onSubmit={(e) => e.preventDefault()}>
         <input
           name="q"
           placeholder="Search title, tag, requester…"
@@ -372,7 +371,7 @@ export default function TicketsPage() {
         ) : null}
         <input type="hidden" name="sort" value={queryObj.sort || ""} />
         <input type="hidden" name="dir" value={queryObj.sort ? sortDir : ""} />
-        <Btn type="submit" $variant="secondary">Apply</Btn>
+        <Btn type="button" $variant="secondary" onClick={applyFilters}>Apply</Btn>
         <Btn type="button" $variant="secondary" onClick={resetFilters}>
           Reset filters
         </Btn>
