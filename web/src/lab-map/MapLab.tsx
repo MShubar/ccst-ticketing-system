@@ -767,7 +767,7 @@ export default function MapLab() {
             className="lab-map"
             id="lab-map-svg"
             viewBox={vb}
-            style={{ width: `${Math.round(baseSvgW * zoom)}px` }}
+            style={{ width: zoom <= 1 ? "100%" : `${Math.round(baseSvgW * zoom)}px` }}
             role="img"
             aria-label="Lab network map"
             ref={svgRef}
