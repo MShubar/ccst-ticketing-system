@@ -423,6 +423,7 @@ function addStudent(db, instructor, { username, fullName, password }) {
     email: `${user}@procloud.training`,
     role: "technician",
     level: 1,
+    xp: 0,
     classId: instructor.classId,
     cohort: getClass(db, instructor.classId)?.name || instructor.cohort,
     passwordHash: hashPassword(pass),
@@ -443,10 +444,45 @@ function publicUser(user, db) {
     email: user.email,
     role: user.role,
     level: user.level,
+    xp: user.xp || 0,
     classId: user.classId || null,
     className: classRow ? classRow.name : user.cohort || null,
     cohort: classRow ? classRow.name : user.cohort || null
   };
+}
+
+/** XP system — students earn XP for skills at or above their current level. */
+const XP_PER_LEVEL = 100;
+
+function getXpForLevel(level) {
+  return (level - 1) * XP_PER_LEVEL;
+}
+
+function getUserLevelFromXp(xp) {
+  if (xp == null || xp <= 0) return 1;
+  return Math.min(20, Math.floor(xp / XP_PER_LEVEL) + 1);
+}
+
+function awardXP(db, userId, amount, requiredSkillLevel) {
+  const user = db.users.find(u => u.id === userId);
+  if (!user) return { ok: false, error: "User not found" };
+  if (user.role !== "technician") return { ok: false, error: "Not a student" };
+  if (user.level < requiredSkillLevel) {
+    return { ok: false, error: `Level ${user.level} < ${requiredSkillLevel}` };
+  }
+  user.xp = (user.xp || 0) + amount;
+  const newLevel = getUserLevelFromXp(user.xp);
+  let leveledUp = null;
+  if (newLevel > user.level) {
+    leveledUp = { from: user.level, to: newLevel };
+    user.level = newLevel;
+  }
+  db.classes.find(c => c.id === user.classId)?.logActivity({
+    type: "xp",
+    who: user.id,
+    summary: `${user.fullName} +${amount} XP (lvl ${user.level}${leveledUp ? " → " + leveledUp.to : ""})`
+  });
+  return { ok: true, xp: user.xp, level: user.level, leveledUp };
 }
 
 /**
@@ -646,6 +682,9 @@ module.exports = {
   createClassWithInstructor,
   addStudent,
   publicUser,
+  awardXP,
+  getUserLevelFromXp,
+  getXpForLevel,
   enrichTicket,
   slaState,
   computeKpis

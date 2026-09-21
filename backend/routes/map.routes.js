@@ -4,6 +4,7 @@ const { requireAuth, requireAuthLight, requireInstructor } = require("../middlew
 const { loadDbWithLab, saveIfDirty } = require("../lib/db-request");
 const mapService = require("../services/map.service");
 const { badRequest, AppError } = require("../errors/AppError");
+const store = require("../data/store");
 const { toMapPayload } = require("../lib/dto/map");
 
 const router = patchAsyncMethods(express.Router());
@@ -63,6 +64,14 @@ router.post("/links/op", requireAuth, async (req, res) => {
       links: result.links,
       updatedAt: result.updatedAt
     });
+  }
+  // Award XP for cable work (level 8 skill) — only if user is a student at level 8+
+  if (req.user.role === "technician" && req.user.level >= 8 && result.action) {
+    const db = await loadDbWithLab(req);
+    const xpResult = store.awardXP(db, req.user.id, 15, 8);
+    if (xpResult.ok) {
+      result.xpAwarded = xpResult;
+    }
   }
   res.json(result);
 });

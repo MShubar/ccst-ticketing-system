@@ -310,6 +310,17 @@ async function createTicket(db, user, body) {
   }
   const ticket = store.createTicket(db, user.classId, { ...body, title, description, assigneeId });
   await store.writeDb(db);
+  // Award XP for creating a ticket (level 1 skill) — only if requester is a student at level 1+
+  const requester = db.users.find((u) => u.id === ticket.requesterId);
+  if (requester && requester.role === "technician" && requester.level >= 1) {
+    const xpResult = store.awardXP(db, requester.id, 10, 1);
+    if (xpResult.ok) {
+      ticket._xpAwarded = xpResult;
+      const updated = store.enrichTicket(db, ticket, user);
+      delete updated._xpAwarded;
+      return toTicketDto(updated, user);
+    }
+  }
   return toTicketDto(store.enrichTicket(db, ticket, user), user);
 }
 
