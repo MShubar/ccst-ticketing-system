@@ -1,4 +1,6 @@
 import { Outlet } from "react-router-dom";
+import { useState } from "react";
+import styled from "styled-components";
 
 import Loader from "@/components/common/Loader";
 import ProfileMenu from "@/components/shell/ProfileMenu";
@@ -9,12 +11,15 @@ import {
   Shell,
   Topbar,
   Workspace,
+  MenuButton,
+  MobileNavOverlay,
 } from "@/components/shell/shell.styles";
 import { profileExtras, titleForPath } from "@/constants/nav";
 import { useOptimisticNav } from "@/nav/OptimisticNavContext";
 import { PageReadyProvider, usePageReady } from "@/nav/PageReadyContext";
 import { useLogout } from "@/services/mutations/auth/auth.hooks";
 import { useAuthStore } from "@/store/auth/authStore";
+import { colors } from "@/theme/colors";
 
 function MainLayoutShell() {
   const user = useAuthStore((s) => s.user);
@@ -24,6 +29,7 @@ function MainLayoutShell() {
   const logout = useLogout();
   const { path: optimisticPath, go, isPending } = useOptimisticNav();
   const { ready } = usePageReady();
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   const classLabel = user?.className || classInfo?.name || "Class";
   const isInstructor = user?.role === "instructor";
@@ -40,6 +46,9 @@ function MainLayoutShell() {
         <Workspace>
           <Topbar>
             <div>
+              <MenuButton $mobileOpen={mobileNavOpen} onClick={() => setMobileNavOpen(!mobileNavOpen)}>
+                <span /><span /><span />
+              </MenuButton>
               <h1>{titleForPath(optimisticPath, isInstructor)}</h1>
             </div>
             <ProfileMenu
@@ -61,6 +70,7 @@ function MainLayoutShell() {
           </Content>
         </Workspace>
       </Shell>
+      <MobileNavOverlay $open={mobileNavOpen} onClick={() => setMobileNavOpen(false)} />
     </>
   );
 }

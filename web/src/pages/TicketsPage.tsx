@@ -56,14 +56,37 @@ const Filters = styled.form`
 
   input[name="q"] {
     flex: 1;
-    min-width: 200px;
+    min-width: 140px;
+  }
+
+  @media (max-width: 600px) {
+    gap: 6px;
+
+    input,
+    select {
+      padding: 6px 8px;
+      font-size: 12px;
+    }
+
+    input[name="q"] {
+      min-width: 100px;
+    }
   }
 `;
+
+const TableWrap = styled.div`
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid ${colors.line};
+  border-radius: ${({ theme }) => theme.radii.md};
+` ;
+
 
 const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
   font-size: 13.5px;
+  min-width: 680px;
 
   th {
     text-align: left;
@@ -388,7 +411,8 @@ export default function TicketsPage() {
         </Card>
       ) : (
         <Card style={{ padding: 0 }}>
-          <Table>
+          <TableWrap>
+            <Table>
             <thead>
               <tr>
                 {sortHead("id", "ID")}

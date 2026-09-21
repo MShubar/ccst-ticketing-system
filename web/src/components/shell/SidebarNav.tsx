@@ -7,12 +7,14 @@ import {
   NavList,
   SidebarRoot,
 } from "@/components/shell/shell.styles";
+import { colors } from "@/theme/colors";
 
 type Props = {
   classLabel: string;
   currentPath: string;
   onNavigate: (to: string) => void;
   items?: NavItem[];
+  mobileOpen?: boolean;
 };
 
 export default function SidebarNav({
@@ -20,9 +22,30 @@ export default function SidebarNav({
   currentPath,
   onNavigate,
   items = SIDEBAR_NAV,
+  mobileOpen = false,
 }: Props) {
   return (
-    <SidebarRoot>
+    <SidebarRoot $mobileOpen={mobileOpen}>
+      {mobileOpen && (
+        <button
+          type="button"
+          onClick={() => onNavigate("")}
+          style={{
+            position: "absolute",
+            top: 16,
+            right: 16,
+            padding: "6px 10px",
+            fontSize: 18,
+            border: "1px solid " + colors?.line || "#d9d1c3",
+            borderRadius: "4px",
+            background: "#ffffff",
+            cursor: "pointer",
+            color: "#17202a",
+          }}
+        >
+          ✕
+        </button>
+      )}
       <div>
         <BrandKicker>ProCloud</BrandKicker>
         <BrandTitle>CCST Ticketing</BrandTitle>

@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 import { colors } from "@/theme/colors";
 
-export const Shell = styled.div<{ $pending?: boolean; $ready?: boolean }>`
+export const Shell = styled.div<{ $pending?: boolean; $ready?: boolean; $mobileNavOpen?: boolean }>`
   display: grid;
   grid-template-columns: 248px 1fr;
   min-height: 100vh;
@@ -15,6 +15,12 @@ export const Shell = styled.div<{ $pending?: boolean; $ready?: boolean }>`
         opacity: 0.72;
         transition: opacity 0.15s ease;
       }
+    `}
+
+  ${({ $mobileNavOpen }) =>
+    $mobileNavOpen &&
+    css`
+      grid-template-columns: 280px 1fr;
     `}
 
   @media (max-width: 900px) {
@@ -31,6 +37,17 @@ export const SidebarRoot = styled.aside`
   display: flex;
   flex-direction: column;
   gap: 22px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 100;
+  transform: translateX(${({ $mobileOpen }) => ($mobileOpen ? 0 : "-100%")});
+
+  @media (min-width: 901px) {
+    position: static;
+    transform: none;
+  }
 `;
 
 export const BrandTitle = styled.div`
@@ -84,22 +101,72 @@ export const Topbar = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding: 16px 28px;
+  gap: 12px;
+  padding: 14px 20px;
   border-bottom: 1px solid ${colors.line};
   background: ${colors.white};
 
   h1 {
     margin: 0;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
+  }
+
+  @media (max-width: 480px) {
+    padding: 12px 14px;
+
+    h1 {
+      font-size: 16px;
+    }
   }
 `;
 
 export const Content = styled.main.attrs({ className: "content" })`
-  padding: 24px 28px 48px;
+  padding: 20px 20px 40px;
   background: ${colors.white};
   flex: 1;
+
+  @media (max-width: 480px) {
+    padding: 14px 14px 32px;
+  }
+`;
+
+const MenuButton = styled.button`
+  display: none;
+  width: 40px;
+  height: 40px;
+  border: 1px solid ${colors.line};
+  border-radius: ${({ theme }) => theme.radii.sm};
+  background: ${colors.white};
+  cursor: pointer;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+
+  span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: ${colors.ink};
+    border-radius: 1px;
+  }
+
+  @media (max-width: 900px) {
+    display: flex;
+  }
+`;
+
+const MobileNavOverlay = styled.div<{ $open?: boolean }>`
+  display: ${({ $open }) => ($open ? "block" : "none")};
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 19, 31, 0.5);
+  z-index: 99;
+
+  @media (min-width: 901px) {
+    display: none;
+  }
 `;
 
 export const AlertBox = styled.div<{ $variant?: "warning" | "announce" }>`
