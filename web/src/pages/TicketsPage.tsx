@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { FormEvent } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
@@ -185,6 +185,7 @@ export default function TicketsPage() {
 
   const queryObj = useMemo(() => Object.fromEntries(searchParams.entries()), [searchParams]);
   const hasView = TICKET_VIEW_KEYS.some((k) => queryObj[k]);
+  const [searchValue, setSearchValue] = useState(queryObj.q || "");
 
   useEffect(() => {
     if (restored.current) return;
@@ -329,13 +330,8 @@ export default function TicketsPage() {
         <input
           name="q"
           placeholder="Search title, tag, requester…"
-          value={queryObj.q || ""}
-          onChange={(e) => {
-            const p = new URLSearchParams(searchParams);
-            if (e.target.value) p.set("q", e.target.value);
-            else p.delete("q");
-            setSearchParams(p);
-          }}
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
         />
         <select name="priority" value={queryObj.priority || ""} onChange={(e) => {
           const p = new URLSearchParams(searchParams);
