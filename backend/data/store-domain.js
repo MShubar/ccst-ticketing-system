@@ -467,10 +467,19 @@ function awardXP(db, userId, amount, requiredSkillLevel) {
   const user = db.users.find(u => u.id === userId);
   if (!user) return { ok: false, error: "User not found" };
   if (user.role !== "technician") return { ok: false, error: "Not a student" };
-  if (user.level < requiredSkillLevel) {
-    return { ok: false, error: `Level ${user.level} < ${requiredSkillLevel}` };
+  // Only award if skill is at or near user's level — no grinding skills far below
+  const delta = user.level - requiredSkillLevel;
+  if (delta < 0) {
+    return { ok: false, error: `Locked: need level ${requiredSkillLevel}, you're ${user.level}` };
   }
-  user.xp = (user.xp || 0) + amount;
+  if (delta > 3) {
+    return { ok: false, error: `Too easy: skill level ${requiredSkillLevel}, you're ${user.level}` };
+  }
+  // Taper: full amount at exact level, half at +1, quarter at +2, eighth at +3
+  const taper = delta === 0 ? 1 : delta === 1 ? 0.5 : delta === 2 ? 0.25 : 0.125;
+  const actual = Math.round(amount * taper);
+  if (actual <= 0) return { ok: false, error: "No XP for this" };
+  user.xp = (user.xp || 0) + actual;
   const newLevel = getUserLevelFromXp(user.xp);
   let leveledUp = null;
   if (newLevel > user.level) {
@@ -480,9 +489,9 @@ function awardXP(db, userId, amount, requiredSkillLevel) {
   db.classes.find(c => c.id === user.classId)?.logActivity({
     type: "xp",
     who: user.id,
-    summary: `${user.fullName} +${amount} XP (lvl ${user.level}${leveledUp ? " → " + leveledUp.to : ""})`
+    summary: `${user.fullName} +${actual} XP for level ${requiredSkillLevel} skill (total: ${user.xp} XP${leveledUp ? ", → lvl " + leveledUp.to : ""})`
   });
-  return { ok: true, xp: user.xp, level: user.level, leveledUp };
+  return { ok: true, xp: user.xp, level: user.level, leveledUp, awarded: actual };
 }
 
 /**
