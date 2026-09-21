@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import type { FormEvent } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
@@ -185,8 +185,6 @@ export default function TicketsPage() {
 
   const queryObj = useMemo(() => Object.fromEntries(searchParams.entries()), [searchParams]);
   const hasView = TICKET_VIEW_KEYS.some((k) => queryObj[k]);
-  const [searchValue, setSearchValue] = useState(queryObj.q || "");
-  const searchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     if (restored.current) return;
@@ -331,17 +329,12 @@ export default function TicketsPage() {
         <input
           name="q"
           placeholder="Search title, tag, requester…"
-          value={searchValue}
+          value={queryObj.q || ""}
           onChange={(e) => {
-            const v = e.target.value;
-            setSearchValue(v);
-            if (searchTimer.current) clearTimeout(searchTimer.current);
-            searchTimer.current = setTimeout(() => {
-              const p = new URLSearchParams(searchParams);
-              if (v) p.set("q", v);
-              else p.delete("q");
-              setSearchParams(p);
-            }, 300);
+            const p = new URLSearchParams(searchParams);
+            if (e.target.value) p.set("q", e.target.value);
+            else p.delete("q");
+            setSearchParams(p);
           }}
         />
         <select name="priority" value={queryObj.priority || ""} onChange={(e) => {
@@ -401,6 +394,7 @@ export default function TicketsPage() {
         ) : null}
         <input type="hidden" name="sort" value={queryObj.sort || ""} />
         <input type="hidden" name="dir" value={queryObj.sort ? sortDir : ""} />
+        <Btn type="submit" $variant="secondary">Apply</Btn>
         <Btn type="button" $variant="secondary" onClick={resetFilters}>
           Reset filters
         </Btn>
