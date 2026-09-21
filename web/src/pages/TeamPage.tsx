@@ -17,6 +17,8 @@ import { colors } from "@/theme/colors";
 import { downloadFile } from "@/utils/downloadFile";
 import { formatWhen } from "@/utils/format";
 import { isInstructorRole } from "@/utils/ticketDisplay";
+import type { CurriculumLevel } from "@/types/auth";
+import { fetchCurriculumApi } from "@/services/queries/auth/auth.api";
 
 const Table = styled.table`
   width: 100%;
@@ -181,6 +183,12 @@ export default function TeamPage() {
     return { total, cable, hardware, device };
   }, [mix, genPlan?.families]);
 
+  const [curriculum, setCurriculum] = useState<CurriculumLevel[]>([]);
+  const [showAllLevels, setShowAllLevels] = useState(false);
+  useEffect(() => {
+    fetchCurriculumApi().then(setCurriculum).catch(() => {});
+  }, []);
+
   const roster = (
     <Card style={{ padding: 0, marginBottom: 20 }} id="class-roster">
       <div
@@ -297,6 +305,29 @@ export default function TeamPage() {
             </div>
         ) : null}
       </div>
+      {curriculum.length > 0 && (
+        <Btn
+          type="button"
+          $variant="secondary"
+          onClick={() => setShowAllLevels(!showAllLevels)}
+          style={{ marginBottom: 8 }}
+        >
+          {showAllLevels ? "Hide levels" : "View all levels"}
+        </Btn>
+      )}
+      {showAllLevels && curriculum.length > 0 && (
+        <Card style={{ marginBottom: 16, fontSize: 13 }}>
+          <h4 style={{ margin: "0 0 8px", fontSize: 14 }}>All levels (1–20)</h4>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 8 }}>
+            {curriculum.map(c => (
+              <div key={c.level} style={{ padding: 8, background: colors.whiteSoft, borderRadius: 6 }}>
+                <strong style={{ display: "block", fontSize: 12 }}>L{c.level}: {c.title}</strong>
+                <span style={{ color: colors.muted, fontSize: 11 }}>{c.description}</span>
+              </div>
+            ))}
+          </div>
+        </Card>
+      )}
       <Table>
         <thead>
           <tr>
@@ -313,7 +344,16 @@ export default function TeamPage() {
               <td>{u.fullName}</td>
               <td style={{ fontFamily: "monospace" }}>{u.username}</td>
               <td>{u.role}</td>
-              <td>L{u.level}</td>
+              <td>
+                <span title={curriculum.find(c => c.level === u.level)?.title || ""}>
+                  L{u.level}
+                  {curriculum.find(c => c.level === u.level) ? (
+                    <span style={{ color: colors.muted, marginLeft: 4, fontSize: 12 }}>
+                      — {curriculum.find(c => c.level === u.level)!.title}
+                    </span>
+                  ) : null}
+                </span>
+              </td>
               {instructor && u.role === "technician" ? (
                 <td style={{ whiteSpace: "nowrap" }}>
                   <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
