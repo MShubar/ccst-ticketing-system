@@ -44,10 +44,11 @@ export const Field = styled.div`
     border: 1px solid ${({ theme }) => theme.colors.line};
     border-radius: ${({ theme }) => theme.radii.sm};
     padding: 10px 12px;
-    background: #ffffff;
-    color: ${({ theme }) => theme.colors.ink};
+    background: #ffffff !important;
+    color: ${({ theme }) => theme.colors.ink} !important;
     font-family: inherit;
     font-size: inherit;
+    border: 1px solid ${({ theme }) => theme.colors.line} !important;
   }
 
   input:focus,
@@ -64,6 +65,29 @@ export const Field = styled.div`
   }
 `;
 
+
+
+// Explicit styled input for forms — avoids any theme resolution issues
+export const FormInput = styled.input`
+  border: 1px solid ${({ theme }) => theme.colors.line};
+  border-radius: ${({ theme }) => theme.radii.sm};
+  padding: 10px 12px;
+  background: #ffffff;
+  color: ${({ theme }) => theme.colors.ink};
+  font-family: inherit;
+  font-size: inherit;
+  width: 100%;
+
+  &:focus {
+    outline: 2px solid ${({ theme }) => theme.colors.teal};
+    outline-offset: 1px;
+  }
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.muted};
+    opacity: 0.7;
+  }
+`;
 type BtnVariant = "primary" | "secondary" | "teal" | "danger";
 
 export const Btn = styled.button<{ $variant?: BtnVariant; $busy?: boolean }>`

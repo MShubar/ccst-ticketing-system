@@ -101,7 +101,7 @@ export default function TeamPage() {
     null
   );
   const mixSaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const [levelChangeMsg, setLevelChangeMsg] = useState("");
+  const [levelChangeMsg] = useState("");
 
   const { data: attendance } = useQuery({
     queryKey: ["class", "attendance"],
@@ -184,6 +184,7 @@ export default function TeamPage() {
   }, [mix, genPlan?.families]);
 
   const [curriculum, setCurriculum] = useState<CurriculumLevel[]>([]);
+  const curriculumLoaded = curriculum.length > 0;
   const [showAllLevels, setShowAllLevels] = useState(false);
   useEffect(() => {
     fetchCurriculumApi().then(setCurriculum).catch(() => {});
@@ -256,52 +257,6 @@ export default function TeamPage() {
             >
               Download all KPI PDFs
             </Btn>
-            <Btn
-              type="button"
-              $variant="secondary"
-              onClick={async () => {
-                const lvl = prompt(`Set your level (1-20):`, String(user?.level || 1));
-                if (lvl === null) return;
-                const n = Number(lvl);
-                if (!Number.isInteger(n) || n < 1 || n > 20) {
-                  toast.error("Level must be a whole number from 1 to 20.");
-                  return;
-                }
-                try {
-                  const uid = user?.id;
-                  if (!uid) { toast.error("Not logged in."); return; }
-                  await api.patch(`/levels/users/${uid}`, { level: n });
-                  toast.success(`Your level set to ${n}.`);
-                  qc.invalidateQueries({ queryKey: ["users"] });
-                } catch (err) {
-                  toast.error(err instanceof Error ? err.message : "Failed");
-                }
-              }}
-            >
-              Set my level
-            </Btn>
-            <Btn
-              type="button"
-              $variant="secondary"
-              onClick={async () => {
-                const password = prompt("New password (min 6 characters):");
-                if (!password) return;
-                if (password.length < 6) {
-                  toast.error("Password must be at least 6 characters.");
-                  return;
-                }
-                try {
-                  const uid = user?.id;
-                  if (!uid) { toast.error("Not logged in."); return; }
-                  await api.patch(`/students/${uid}/password`, { password });
-                  toast.success("Your password has been updated.");
-                } catch (err) {
-                  toast.error(err instanceof Error ? err.message : "Failed");
-                }
-              }}
-            >
-              Reset my password
-            </Btn>
             </div>
         ) : null}
       </div>
@@ -345,9 +300,9 @@ export default function TeamPage() {
               <td style={{ fontFamily: "monospace" }}>{u.username}</td>
               <td>{u.role}</td>
               <td>
-                <span title={curriculum.find(c => c.level === u.level)?.title || ""}>
+                <span title={curriculumLoaded ? curriculum.find(c => c.level === u.level)?.title || "" : ""}>
                   L{u.level}
-                  {curriculum.find(c => c.level === u.level) ? (
+                  {curriculumLoaded && curriculum.find(c => c.level === u.level) ? (
                     <span style={{ color: colors.muted, marginLeft: 4, fontSize: 12 }}>
                       — {curriculum.find(c => c.level === u.level)!.title}
                     </span>
@@ -386,28 +341,6 @@ export default function TeamPage() {
                       }}
                     >
                       Reset password
-                    </Btn>
-                    <Btn
-                      type="button"
-                      onClick={async () => {
-                        const lvl = prompt(`Set level for ${u.fullName} (1-20):`, String(u.level));
-                        if (lvl === null) return;
-                        const n = Number(lvl);
-                        if (!Number.isInteger(n) || n < 1 || n > 20) {
-                          toast.error("Level must be a whole number from 1 to 20.");
-                          return;
-                        }
-                        try {
-                          await api.patch(`/levels/users/${u.id}`, { level: n });
-                          setLevelChangeMsg(`${u.fullName} → Level ${n}.`);
-                          toast.success(`Level set to ${n}.`);
-                          qc.invalidateQueries({ queryKey: ["users"] });
-                        } catch (err) {
-                          toast.error(err instanceof Error ? err.message : "Failed");
-                        }
-                      }}
-                    >
-                      Set level
                     </Btn>
                     <Btn
                       type="button"
