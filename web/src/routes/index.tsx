@@ -104,7 +104,9 @@ export const router = createBrowserRouter([
   {
     element: <Outlet />,
     errorElement: <RouteErrorPage />,
-    children: [{ path: ROUTES.LOGIN, element: <LoginPage /> }],
+    children: [
+      { path: ROUTES.LOGIN, element: <React.Suspense fallback={<Loader />}><LoginPage /></React.Suspense> },
+    ],
   },
   {
     element: (
