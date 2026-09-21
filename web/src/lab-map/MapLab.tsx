@@ -99,6 +99,7 @@ export default function MapLab() {
   const { markReady } = usePageReady();
   const user = useAuthStore((s) => s.user);
   const instructor = isInstructorRole(user);
+  const canUseCables = (user?.level ?? 0) >= 8;
 
   const { data: mapData, isLoading, isError } = useMap();
   const linkOpMut = useLinkOpMutation();
@@ -113,7 +114,9 @@ export default function MapLab() {
   const [lastResetAt, setLastResetAt] = useState<MapPayload["lastResetAt"]>(null);
   const [pending, setPending] = useState<string | null>(null);
   const [status, setStatus] = useState(
-    "Click a free port, then another port, to plug a cable — it syncs live for the class. Click a cable to unplug it."
+    canUseCables
+      ? "Click a free port, then another port, to plug a cable — it syncs live for the class. Click a cable to unplug it."
+      : "Reach Level 8 (Cross & Straight-Through Cables) to work with cables on the lab map."
   );
   const [zoom, setZoomState] = useState(() =>
     getMapZoom() != null ? getMapZoom()! : fullscreen ? 1 : 0.85
@@ -307,13 +310,21 @@ export default function MapLab() {
     const wire = target.closest(".map-wire-group[data-link]") as SVGGElement | null;
     if (!wire) return;
     evt.stopPropagation();
+    if (!canUseCables) {
+      setStatus("Reach Level 8 (Cross & Straight-Through Cables) to work with cables on the lab map.");
+      toast.warning("Cable work is locked until Level 8.");
+      return;
+    }
     const id = wire.getAttribute("data-link");
     if (!id) return;
-    setStatus("Cable unplugged.");
+    const link = links.find(l => l.id === id);
+    const cableType = link?.cable || "copper";
+    const cableLabel = cableType === "crossover" ? "crossover" : cableType === "fiber" ? "fiber" : "straight-through";
+    setStatus(`${cableLabel} cable unplugged.`);
     void applyLinkOp({ action: "unplug", id })
       .then(() => {
         setPending(null);
-        setStatus("Cable unplugged — live for the class.");
+        setStatus(`${cableLabel} cable unplugged — live for the class.`);
       })
       .catch((err: Error) => {
         setStatus(err.message || "Could not unplug that cable.");
@@ -404,7 +415,9 @@ export default function MapLab() {
       setStatus(
         pending
           ? `Still holding ${pending}. Click a free white port — teal means taken.`
-          : "That port is taken (teal). Click a white free port, or click the cable to unplug it."
+          : canUseCables
+            ? "That port is taken (teal). Click a white free port, or click the cable to unplug it."
+            : "Reach Level 8 (Cross & Straight-Through Cables) to work with cables on the lab map."
       );
       return;
     }
@@ -433,7 +446,14 @@ export default function MapLab() {
     const from = pending;
     const to = key;
     setPending(null);
-    setStatus(`Cable plugged — live for the class.`);
+    if (!canUseCables) {
+      setStatus("Reach Level 8 (Cross & Straight-Through Cables) to work with cables on the lab map.");
+      toast.warning("Cable work is locked until Level 8.");
+      return;
+    }
+    const cableType = mapPickCable(mapDeviceType(topo!, from), mapDeviceType(topo!, to));
+    const cableLabel = cableType === "crossover" ? "crossover" : cableType === "fiber" ? "fiber" : "straight-through";
+    setStatus(`${cableLabel} cable plugged — live for the class.`);
     try {
       await applyLinkOp({
         action: "plug",
@@ -521,7 +541,11 @@ export default function MapLab() {
             </div>
           </div>
         </div>
-        <p className="hint">Click a device for its console. Click two ports to plug a cable.</p>
+        <p className="hint">
+          {canUseCables
+            ? "Click a device for its console. Click two ports to plug a cable."
+            : "Reach Level 8 (Cross & Straight-Through Cables) to work with cables on the lab map."}
+        </p>
       </div>
     );
   }
@@ -883,7 +907,11 @@ export default function MapLab() {
             <MapPresenceLayer peers={peers} />
           </svg>
         </div>
-        <p className="hint">Click a device for its console. Click two ports to plug a cable.</p>
+        <p className="hint">
+          {canUseCables
+            ? "Click a device for its console. Click two ports to plug a cable."
+            : "Reach Level 8 (Cross & Straight-Through Cables) to work with cables on the lab map."}
+        </p>
       </div>
 
       {consoleDeviceId ? (
