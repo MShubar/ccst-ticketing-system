@@ -94,17 +94,22 @@ router.patch("/:id/level", requireAuth, requireInstructor, async (req, res) => {
     );
     if (!target) throw notFound("Student not found in your class.");
     oldLevel = target.level;
-    target.level = level;
+    // Instructors are always level 20 — ignore attempts to set them lower.
+    if (target.role === "instructor") {
+      target.level = 20;
+    } else {
+      target.level = level;
+    }
     target.updatedAt = new Date().toISOString();
     await store.writeDb(db);
     store.logActivity(db, req.user.classId, {
       userId: req.user.id,
       type: "level_change",
-      summary: `${req.user.fullName} set ${target.fullName}'s level from ${oldLevel} to ${level}.`,
+      summary: `${req.user.fullName} set ${target.fullName}'s level from ${oldLevel} to ${target.level}.`,
     });
     return toPublicUser(target, db);
   });
-  res.json({ ok: true, user: student, oldLevel, newLevel: level });
+  res.json({ ok: true, user: student, oldLevel, newLevel: student.level });
 });
 
 /** Review every ticket for one student that still needs a mark (or force=all). */

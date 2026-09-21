@@ -13,7 +13,8 @@ router.get("/curriculum", requireAuth, async (_req, res) => {
   res.json(seedData.CURRICULUM);
 });
 
-/** PATCH /api/levels/users/:id — instructor sets a student's level (1-20). */
+/** PATCH /api/levels/users/:id — instructor sets a student's level (1-20).
+ * Instructors are always level 20 — any attempt to set an instructor lower is ignored. */
 router.patch("/users/:id", requireAuth, requireInstructor, async (req, res) => {
   const raw = req.body?.level;
   const level = Number(raw);
@@ -30,7 +31,12 @@ router.patch("/users/:id", requireAuth, requireInstructor, async (req, res) => {
   );
   if (!user) throw notFound("Student not found in your class.");
   const old = user.level;
-  user.level = level;
+  // Instructors are always level 20 — ignore attempts to set them lower.
+  if (user.role === "instructor") {
+    user.level = 20;
+  } else {
+    user.level = level;
+  }
   user.updatedAt = new Date().toISOString();
   await store.writeDb(db);
   store.logActivity(db, req.user.classId, {

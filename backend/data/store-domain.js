@@ -379,7 +379,7 @@ function createClassWithInstructor(db, { className, username, fullName, password
     fullName: display,
     email: `${user}@procloud.training`,
     role: "instructor",
-    level: 3,
+    level: 20,
     classId,
     cohort: name,
     passwordHash: hashPassword(pass),
