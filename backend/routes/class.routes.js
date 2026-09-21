@@ -217,5 +217,12 @@ router.get("/export.csv", requireAuth, requireInstructor, async (req, res) => {
   res.send(csv);
 });
 
+/** Enrollment count — poll this to see how many people have signed up. */
+router.get("/count", requireAuth, requireInstructor, async (req, res) => {
+  const db = await loadDb(req);
+  const students = store.classUsers(db, req.user.classId);
+  const count = students.filter((u) => u.role === "technician").length;
+  res.json({ count, total: students.length, threshold: 10, overThreshold: count > 10 });
+});
 
 module.exports = router;

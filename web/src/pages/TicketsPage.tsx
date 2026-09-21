@@ -490,6 +490,7 @@ export default function TicketsPage() {
               )}
             </tbody>
           </Table>
+          </TableWrap>
         </Card>
       )}
 

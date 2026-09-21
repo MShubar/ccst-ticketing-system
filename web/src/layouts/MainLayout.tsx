@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom";
 import { useState } from "react";
-import styled from "styled-components";
 
 import Loader from "@/components/common/Loader";
 import ProfileMenu from "@/components/shell/ProfileMenu";
@@ -19,7 +18,6 @@ import { useOptimisticNav } from "@/nav/OptimisticNavContext";
 import { PageReadyProvider, usePageReady } from "@/nav/PageReadyContext";
 import { useLogout } from "@/services/mutations/auth/auth.hooks";
 import { useAuthStore } from "@/store/auth/authStore";
-import { colors } from "@/theme/colors";
 
 function MainLayoutShell() {
   const user = useAuthStore((s) => s.user);
@@ -46,7 +44,7 @@ function MainLayoutShell() {
         <Workspace>
           <Topbar>
             <div>
-              <MenuButton $mobileOpen={mobileNavOpen} onClick={() => setMobileNavOpen(!mobileNavOpen)}>
+              <MenuButton onClick={() => setMobileNavOpen(!mobileNavOpen)}>
                 <span /><span /><span />
               </MenuButton>
               <h1>{titleForPath(optimisticPath, isInstructor)}</h1>

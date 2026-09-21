@@ -28,7 +28,7 @@ export const Shell = styled.div<{ $pending?: boolean; $ready?: boolean; $mobileN
   }
 `;
 
-export const SidebarRoot = styled.aside`
+export const SidebarRoot = styled.aside<{ $mobileOpen?: boolean }>`
   background:
     radial-gradient(1200px 400px at -10% -10%, ${colors.tealGlow}, transparent 50%),
     linear-gradient(180deg, ${colors.navy2}, ${colors.navy});
@@ -131,7 +131,7 @@ export const Content = styled.main.attrs({ className: "content" })`
   }
 `;
 
-const MenuButton = styled.button`
+export const MenuButton = styled.button`
   display: none;
   width: 40px;
   height: 40px;
@@ -157,7 +157,7 @@ const MenuButton = styled.button`
   }
 `;
 
-const MobileNavOverlay = styled.div<{ $open?: boolean }>`
+export const MobileNavOverlay = styled.div<{ $open?: boolean }>`
   display: ${({ $open }) => ($open ? "block" : "none")};
   position: fixed;
   inset: 0;
